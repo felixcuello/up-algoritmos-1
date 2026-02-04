@@ -1,0 +1,4 @@
+1) Utilizando el algoritmo KMP, realizar las siguientes búsquedas de cadenas  de texto:
+a) TERFTERA en TEDTHRETETERTERFTERFTERFTERA
+b) ACIECIACIEN en AACCIIAACIACIEACIECIACIEN
+c) KGRHRHKGH en KGRHKGRHRHKGKGRHRHKGH
