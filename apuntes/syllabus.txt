@@ -1,0 +1,56 @@
+El problema de eficiencia de los algoritmos. C. Tiempo de ejecución. Notación O
+y W. Balance entre tiempo y espacio en los algoritmos.  Análisis práctico del
+tiempo de ejecución de un algoritmo. Conceptos básicos de la teoría de
+computabilidad y complejidad. Problemas computables y no computables.  Notación
+asintótica.  Complejidad de algoritmos. Algoritmos generalizados. Análisis de
+algoritmos. Análisis de la complejidad de algoritmos: Análisis asintótico.
+Análisis numérico. Solución aproximada de sistemas de ecuaciones lineales.
+Comportamiento en el mejor caso, caso promedio y peor caso.  Determinar la
+complejidad asintótica experimentalmente. Algoritmos recursivos. Algoritmos de
+ordenamiento. Distintos medios de ordenamiento.  Ordenamiento óptimo.
+Estrategias de diseño de algoritmos. Búsquedas de sub-cadenas.
+
+
+PROGRAMA ANALÍTICO
+Unidad N°1: EL PROBLEMA DE EFICIENCIA DE LOS ALGORITMOS
+Módulo 1: Eficiencia de los algoritmos
+La eficiencia de los algoritmos. Métodos de evaluación.  La notación asintótica de Brassard y Bratley.  Análisis teórico de ejecución de un algoritmo. 
+Resolución de problemas comparando tiempos de ejecución de los mismos. 
+
+Unidad N° 2: TIEMPO DE EJECUCIÓN
+Módulo 2: Análisis del tiempo de ejecución
+Análisis teórico del tiempo de ejecución de un algoritmo. Análisis práctico del tiempo de ejecución de un algoritmo. Análisis de programas con llamadas a procedimientos.  Análisis de procedimientos recursivos. Algunos ejemplos prácticos. 
+Ejercicios comparando tiempos de ejecución y optimización.
+
+Unidad N°3: INTRODUCCIÓN A LA COMPLEJIDAD
+Módulo 3: Notación Asintótica
+Notación asintótica.  Problemas P y NP.  Problemas computables y no computables.  Ejemplos.  Notación asintótica condicional. Operaciones con notación asintóticas.
+
+Unidad N°4: COMPLEJIDAD DE ALGORITMOS 
+Módulo 4: Complejidad de los Algoritmos
+Cálculo de métricas. Algoritmos generalizados. Análisis de los algoritmos. Bajo promedio. Peor caso.  Análisis con O definición formal de la notación asintótica. Determinar la complejidad asintótica experimentalmente. 
+
+Unidad N°5: ANÁLISIS DE ALGORITMOS
+Módulo 5: Recurrencias homogéneas
+Resolución de recurrencias.   Recurrencias homogéneas. Método iterativo de Jacoby. Método iterativo de Gauss-Siede: Polinomio interpolador Polinomio interpolador de Lagrange. Acotación del error. Polinomio interpolador en la forma de Newton.
+Módulo 6: Recurrencias no homogéneas
+Recurrencias in homogéneas, cambio de variables, formaciones del rango, recurrencia asintótica.. Separación de raíces reales. Teorema de Bolzano. Método de aproximación de Newton-Raphson. Método del punto fijo. Condiciones de convergencia. Acotación del error.
+
+Unidad N°6: ORDENAMIENTO 
+Módulo 7: Ordenamiento iterativo
+Distintos medios de ordenamiento: Inserción, intercambio, selección, fusión, distribución.  Ordenamientos óptimos.
+Módulo 8: Ordenamiento recursivo
+Recursividad.  Tipos. Algoritmos recursivos. Vectores. Distintos medios de ordenamiento: Merge Sort, Quick sort. 
+
+Unidad N°7: ESTRATEGIAS DE DISEÑO DE ALGORITMOS 
+Módulo 9: Programación dinámica y Dividir y conquistar
+Diseño por fuerza bruta.  Diseño por inducción, división y programación dinámica. Programación dinámica, Dividir y conquistar. 
+Módulo 10: Algoritmos voraces y de vuelta atrás
+Branco and bound.  Algoritmo de Greedy. Los problemas de asignación. Algoritmos genéticos. La programación genética. El problema del viajante.
+
+Unidad N°8: BÚSQUEDAS DE SUB-CADENAS
+Módulo 11: Búsqueda aproximada
+Definición del problema. Aplicaciones para Búsqueda bruta. Búsqueda aproximada. Sub-cadenas repetidas.
+Módulo 12: Algoritmo Boyer-Moore
+El algoritmo de Boyer-Moore.  Resolución de casos de situaciones reales.
+
