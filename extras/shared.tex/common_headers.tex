@@ -1,0 +1,135 @@
+% \documentclass[10pt, twocolumn, a4paper]{article}
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}                                             % To handle UTF-8 input
+\usepackage[T1]{fontenc}                                                % Better font encoding that supports accents
+\usepackage[backend=biber, style=ieee]{biblatex}                        % To include the bibliography
+\usepackage[left=2cm, right=2cm, top=2.5cm, bottom=4cm]{geometry}     % To set the margins
+\usepackage[noend]{algpseudocode}
+\usepackage[table]{xcolor}                                              % For coloring cells
+
+\usepackage{algorithm}                                                  % To include algorithms
+\usepackage{amsfonts}                                                   % To include math fonts:ToggleTerm direction=float
+\usepackage{amsmath}                                                    % To include Mathematic symbols
+\usepackage{authblk}                                                    % To format author affiliations
+\usepackage{caption}                                                    % For caption spacing
+\usepackage{enumitem}                                                   % To customize lists (items like i, ii, iii, iv)
+\usepackage{float}                                                      % To place figures where you want them
+\usepackage{fancyhdr}                                                   % To customize headers and footers
+\usepackage{graphicx}                                                   % To include images
+\usepackage{hyperref}                                                   % To include hyperlinks
+\usepackage{lipsum}                                                     % TODO: remove this
+\usepackage{pgfplots}                                                   % To plot functions
+\usepackage{listings}                                                   % To include code
+\usepackage{tabularx}                                                   % For equal-width columns
+\usepackage{tcolorbox}                                                  % To make colored boxes
+\usepackage{tikz}                                                       % To draw graphs
+\usepackage{titlesec}                                                   % To format section titles
+\usepackage{xcolor}                                                     % To define colors
+
+\usetikzlibrary{graphs,graphs.standard, arrows.meta}
+\usetikzlibrary{positioning}
+
+\addbibresource{./references.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Estilo de código
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{up-blue}{RGB}{0,102,254}
+\definecolor{up-violet}{RGB}{100,30,180}
+\definecolor{up-gray}{RGB}{102,102,102}
+\definecolor{up-red}{RGB}{152,102,52}
+\definecolor{up-comment}{RGB}{153,153,153}
+\definecolor{code-bg}{RGB}{248,248,248}
+\definecolor{code-border}{RGB}{104,104,104}
+
+\lstdefinestyle{up-code}{
+    backgroundcolor=\color{code-bg},
+    commentstyle=\color{up-comment}\itshape\footnotesize,
+    keywordstyle=\color{up-blue}\bfseries,
+    numberstyle=\tiny\color{up-red},
+    stringstyle=\color{up-violet},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    frameround=tttt,
+    rulecolor=\color{code-border},
+    xleftmargin=5pt,
+    xrightmargin=5pt,
+    upquote=true,
+    columns=fixed,
+    extendedchars=true,
+    inputencoding=utf8,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1
+        {ü}{{\"u}}1 {Ü}{{\"U}}1
+        {¿}{{?`}}1 {¡}{{!`}}1
+}
+
+\lstset{style=up-code}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Para poder hacer flechas
+\usetikzlibrary{shapes, arrows}
+
+% Sección de definiciones
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+
+% Caja de colores
+\definecolor{mint}{RGB}{202,251,202}
+\definecolor{yellow}{RGB}{255,255,202}
+\definecolor{red}{RGB}{255,202,202}
+
+% Variables globales para el documento
+\newcommand{\universityname}{Universidad de Palermo}
+\newcommand{\facultyname}{Facultad de Ingeniería}
+\newcommand{\coursename}{\textbf{Algoritmos 1}}
+\newcommand{\currentsemester}{Primer Semestre}
+\newcommand{\currentyear}{2026}
+\newcommand{\copyrightnotice}{
+  \scriptsize \textcopyright{} \currentyear \space \universityname. Prohibida la reproducción total o parcial de imágenes y textos
+}
+
+% Esto es para poder agregar comentarios al código
+\newcommand{\comentario}[1]{\textcolor{gray}{// #1}}
+
+% Definir los encabezados y pies de página
+\pagestyle{fancy}
+\fancyhf{} % Borra encabezados y pies de página
+
+% Configuración del header
+\fancyhead[R]{\includegraphics[height=50px]{../latex/images/logo_up.jpg}}
+\renewcommand{\headrulewidth}{0.4pt} % Agregar línea debajo del encabezado
+\fancyhead[L]{\scriptsize \facultyname}
+\fancyhead[C]{\small \coursename}
+\setlength{\headheight}{50pt} % Ajustar la altura del encabezado
+
+% Configuración del footer
+\fancyfoot[C]{\copyrightnotice}
+\fancyfoot[R]{\thepage}
+\renewcommand{\footrulewidth}{0.4pt} % Agregar línea arriba del pie de página
+\setlength{\footskip}{40pt} % Agregar separación entre el texto y el pie de página
+
+% Configuración de la primera página
+\fancypagestyle{firstpage}{
+  \fancyhf{} % Borra encabezados y pies de página
+  \fancyfoot[C]{\thepage} % Número de página centrado
+  \renewcommand{\headrulewidth}{0pt} % Sin línea en el encabezado
+  \renewcommand{\footrulewidth}{0.4pt} % Sin línea en el pie de página
+}
+
+% Configuración de la primera página
+\AtBeginDocument{\thispagestyle{firstpage}}

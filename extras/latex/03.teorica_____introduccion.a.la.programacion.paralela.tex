@@ -1,0 +1,343 @@
+\input{../shared.tex/common_headers.tex}
+
+\begin{document}
+
+\begin{center}
+  \LARGE\textbf{\coursename} \\
+  \Large{Teórica 03 - Introducción a la Programación Paralela} \\
+  \normalsize{\currentsemester, \currentyear} \\
+  \vspace{1em}
+  \hrule
+\end{center}
+
+\vspace{1em}
+
+\setcounter{section}{3}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\subsection{Introducción}
+\label{sec:introduccion}
+
+Hasta ahora hemos visto cómo escribir en C para resolver problemas algorítmicos utilizando la CPU de una computadora.
+Sin embargo, el objetivo de la materia es la de aprender a escribir programas que puedan ejecutarse en múltiples
+unidades de procesamiento en forma \textbf{paralela}.
+
+Los microprocesadores que tenemos en nuestras computadoras personales y celulares se basan en una unidad central de
+procesamiento (CPU) que ejecuta un cierto número de \textit{threads} (hilos) en paralelo, que ejecutan un código
+secuencial de instrucciones. A lo largo de la historia, estas CPUs se fueron llevando a límites de rendimiento cada vez
+mayores, donde gracias a la miniaturización de los componentes, la mayor cantidad de núcleos, la mayor velocidad del
+reloj, mejores formas de enfriamiento y la mejora en la eficiencia energética, se logró aumentar la cantidad de
+procesamiento que se podía hacer en un solo chip.
+
+Esto produjo que, la mayor parte de las aplicaciones, se vieran beneficiadas de estos avances de hardware para
+incrementar la velocidad de las propias aplicaciones donde, esencialmente, el mismo software funcionaba mucho más rápido
+a medida que se iban realizando mejoras en estas unidades de procesamiento secuenciales. Sin embargo esto muchas veces
+se lo conoce como \href{https://es.wikipedia.org/wiki/Escalabilidad#Escalabilidad_vertical}{escalabilidad vertical} ,
+donde se busca mejorar el rendimiento simplemente agregando más recursos.
+
+El problema de la escalabilidad vertical es que tiene un límite, ya que eventualmente llegaremos a un punto donde no se
+pueden acelerar más las unidades de procesamiento y debemos encontrar otras formas de optimización. Es aquí donde entra
+en juego la \textbf{escalabilidad horizontal} que se refiere a la capacidad de aumentar el rendimiento de un sistema
+agregando más unidades de procesamiento (CPUs o GPUs) al sistema en lugar de hacer las unidades más veloces.
+
+Para ilustrar los conceptos básicos de la programación paralela y escalable, necesitamos programar en un lenguaje que
+soporte la paralelización masiva como C, C++ o Python. Para ello elegimos uno de los modelos de programación paralela
+más populares que es CUDA (\textit{Compute Unified Device Architecture}) que es una extensión del lenguaje C para
+ilustrar los conceptos básicos de la programación paralela. El modelo de programación CUDA fue desarrollado por
+\href{https://www.nvidia.com/es-la/}{NVIDIA} que permite aprovechar la potencia de cómputo de varias unidades (GPU) de
+procesamiento a la vez.
+
+La idea de parlelizar no es nueva, pero históricamente los centros de procesamiento paralelo estaban limitados a
+supercomputadoras y clusters bajo la órbita de gobiernos y grandes empresas que podían costearlos
+(\textcite{sutter2005}). Esta paralelización NO implica necesariamente un reemplazo de las CPUs sino un complemento ya
+que por un lado las CPUs son buenas para tareas de baja latencia y su poder de procesamiento seguramente seguirá
+aumentando.
+
+El \textit{ratio} de rendimiento entre una CPU y una GPU puede ser de 1:10 (o más) para ciertas operaciones. Las CPUs
+están optimizadas para ejecutar código secuencial de forma \textit{performante} relizando, en la medida de lo posible,
+un paralelismo interno de instrucciones que es transparente para el usuario. Las CPUs, además, poseen internamente
+grandes cachés que les permiten manejar la inherente latencia del acceso a dispositivos externos lentos, mientras que
+las GPUs por el otro lado tienen cachés mucho más pequeñas ya que sólo necesitan acceder a memoria (muy rápida) y tener
+una gran optimización para mover grandes cantidades de datos tanto \textit{in} como \textit{out} de la DRAM
+(\textit{Dynamic Random Access Memory}) ya que originalmente fueron diseñadas para procesar gráficos en tiempo real,
+especialmente en la industria de los videojuegos donde el
+\href{https://www.youtube.com/shorts/8wj3zVA03WQ}{\textit{frame buffering}} es un requerimiento crítico.
+
+\subsection{Complejidad algorítmica}
+
+En el repaso de algoritmos (y materias anteriores esta) vieron sólo algoritmos secuenciales. Sin embargo antes de
+avanzar con la programación paralela, tenemos que estudiar \textit{complejidad algorítmica} más en detalle.
+
+La complejidad algorítmica es un parámetro con el cual podemos medir la eficiencia de un algoritmo en
+términos de la cantidad de recursos que va a utilizar para completar la tarea. Por un lado tenemos la complejidad en
+\textbf{tiempo}, que podemos pensarla como la cantidad de ciclos de CPU que necesita un algoritmo para obtener el
+resultado esperado, y por el otro lado, tenemos la complejidad en \textbf{espacio}, que podemos pensarlo como cantidad
+de memoria que necesita un algoritmo para obtener el resultado esperado.
+
+Ambas complejidades se expresan en función del tamaño del \textit{input} del algoritmo y nos permiten comparar
+diferentes algoritmos independientemente del lenguaje en que estén implementados. Esto significa que si tenemos dos
+lenguajes de programación diferentes, la complejidad tanto en \textbf{tiempo} como en \textbf{espacio} de un mismo
+algoritmo será la misma, aunque el tiempo de ejecución y la cantidad de memoria pueden ser diferentes ya que los
+lenguajes de programación tienen diferentes niveles de optimización.
+
+\subsubsection{Complejidad en Tiempo}
+
+Cuando diseñamos un algoritmo, es importante tener en cuenta la cantidad de recursos que se van a utilizar, tratando de
+estimar cuál será su complejidad en tiempo y en espacio de acuerdo a la solución que hayamos propuesto. Hay diferentes
+métricas de estimación, aunque las más comunes son estimar \textbf{el caso promedio} y, aún más importante, \textbf{el
+peor caso posible}. Por ejemplo, agregar un elemento al final de un \textit{array} dinámico en cualquier lenguaje de
+programación de alto nivel, tiene una \textbf{complejidad promedio} constante, ya que cuando se crea un array dinámico,
+el lenguaje lo crea de un tamaño dado (aún si el usuario no lo especifica). Por el otro lado, si el \textit{array}
+dinámico estuviera lleno, estaríamos en el \textit{peor caso} posible, ya que el lenguaje, tendría que conseguir más
+memoria para añadir ese nuevo elemento y luego copiar todos los elementos a la nueva posición de memoria.
+
+En esta materia vamos a ver sólo la notación de complejidad para el peor caso, que se representa con la notación
+\textbf{Big O}. En palabras simples, lo que representa la complejidad algorítmica en el peor caso es: \textit{la
+cantidad máxima de tiempo de CPU o cantidad máxima de memoria que se requiere para resolver un problema en función del
+tamaño de la entrada}. Esta función \textbf{Big O} nos da una cota asintótica superior de la cantidad de recursos que se
+necesitan para resolver un problema en función del tamaño de la entrada.
+
+En la figura \ref{fig:big_o_comparison}, podemos observar diferentes funciones de complejidad algorítmica en función del
+tamaño de la entrada (\texttt{n}).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=200px]{./images/big_o_comparison.png}
+  \caption{Big O - Comparación de complejidades}
+  \label{fig:big_o_comparison}
+\end{figure}
+
+Diferentes implementaciones de un mismo algoritmo para resolver un problema pueden tener diferentes complejidades. Por
+ejemplo, existen varios algoritmos que resuelven el problema de ordenar un \textit{array} (arreglo) de elementos de
+tamaño $n$. El más popular por su facilidad de implementación es el algoritmo de
+\href{https://es.wikipedia.org/wiki/Ordenamiento_de_burbuja}{burbujeo} que, si bien ordena los elementos, tiene una
+complejidad de $O(n^2)$, pero si utilizamos un algoritmo de ordenamiento más eficiente, nos encontramos con el
+\href{https://es.wikipedia.org/wiki/Ordenamiento_por_mezcla}{\textit{merge sort}} que tiene una complejidad de $O(n
+\cdot \; \log \; n)$. Ambos algoritmos resuelven el mismo problema (ordernar un array), pero uno es mucho más eficiente
+que el otro. En la figura \ref{fig:bubble_sort_vs_quick_sort} podemos ver la comparación de ambas complejidades. \\
+
+\textbf{Descubrir un algoritmo más eficiente que otro no fácil.}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=300px]{./images/bubble_sort_vs_quick_sort.png}
+  \caption{Big O - Comparación de complejidad algorítmica para Bubble Sort vs Quick Sort}
+  \label{fig:bubble_sort_vs_quick_sort}
+\end{figure}
+
+\subsubsection{Definición: Big O}
+
+En todos los gráficos que vimos la variable \texttt{n} es la cantidad de elementos que tenemos como \textit{input} de nuestro
+algoritmo que se ejecutará con una cierta función de tiempo $f(n)$.
+
+\textbf{Definición}: Diremos que el algoritmo se comporta con una complejidad asintótica de $O(g(n))$ si existe una
+constante $C$ y un valor $n_0$ tal que el valor absoluto de $f(n)$ es menor o igual a $C$ por el valor absoluto de
+$g(n)$ para todo $n$ mayor a $n_0$. (\textcite{wilf2002}). Formalmente:
+
+\[
+  f(n) = O(g(n)) \; (n \; \rightarrow \; \infty) \; si \; \exists \; C, n_0 \; \slash \; \lvert f(n) \rvert \leq C \,
+  \lvert g(n) \rvert \; (\forall \; n > n_0)
+\]
+
+Las complejidades algorítmicas nos dan una idea de si un algoritmo puede ser realizable o no por una determinada unidad
+de procesamiento; por \textit{realizable} queremos decir que la capacidad de resolver las instancias deseadas de un
+problema estén dentro de nuestros recursos disponibles. En la práctica, la factibilidad es muy dependiente del contexto
+y no es particularmente \textit{portable} (portátil) entre diferentes problemas y situaciones. Un principio común se
+mantiene en casi todas las situaciones: \textbf{una tasa de crecimiento exponencial en el consumo de algún recurso
+limita la aplicación del uso de ese método a todas las instancias, excepto a las más pequeñas}. En otras palabras, si
+nuestros algoritmos tienden a tener complejidades exponenciales (o más) en el tamaño de la entrada, no importa cuántos
+recursos tengamos, no podremos resolver instancias grandes del problema.
+
+Por lo tanto, la factibilidad ha llegado a significar que la tasa de crecimiento del recurso está acotada por un una
+complejidad polinomial en el tamaño de la entrada. Esto nos da la noción común de que un problema tiene una solución
+secuencial factible sólo si tenemos un algoritmo de tiempo polinomial, es decir, sólo si cualquier instancia de tamaño
+$n$ del problema se puede resolver en tiempo $n^{O(1)}$. Aunque ampliamente reconocido como muy simplista, la dicotomía
+entre algoritmos polinomiales y no polinomiales ha demostrado ser un discriminador poderoso entre aquellos cálculos que
+son factibles en la práctica y aquellos que no lo son (\textcite{greenlaw1995}).
+
+Lógicamente hay problemas para los cuales no se han encontrado algoritmos polinomiales, por ejemplo, la factorización
+entera de un número muy grande es un problema que no puede resolverse en tiempo polinomial con las CPUs y GPUs actuales.
+Por eso es que la seguridad de muchos sistemas de encriptación se basan en ello. Si bien excede lárgamente el contenido
+de esta materia, hay algoritmos cuánticos que pueden resolver este problema en tiempo $O((\log n)^{O(1)})$
+(\cite{ekert1996}).
+
+\subsubsection{Complejidad en Espacio}
+
+La complejidad en espacio es la cantidad de memoria requerida para resolver un algoritmo. Es, también, una función que
+depende de la entrada del algoritmo y de la cantidad de memoria adicional que se necesite para resolver el problema.
+
+Como en la complejidad en tiempo, se utiliza la notación \textbf{Big O} ya que en este caso también se trata de una cota
+asintótica superior de la cantidad de memoria que se necesita para resolver un problema en función del tamaño de la
+entrada. Esto incluye tanto la memoria utilizada estáticamente como la memoria utilizada dinámicamente, sin embargo, no
+se tiene en cuenta la memoria utilizada como \textit{input}. Por ejemplo, un algoritmo que cuenta la cantidad de números
+pares de un vector tiene una complejidad en tiempo de \textbf{$O(n)$} y una complejidad en espacio de \textbf{$O(1)$} ya
+que sólo necesita una variable para contar la cantidad de números pares.
+
+\begin{algorithm}
+\caption{Contar números pares}
+  \label{alg:countPares}
+  \begin{algorithmic}[1]
+    \Statex \textbf{Define:} countPares($a$)
+    \Statex \textbf{Input:} $a = \{a_0, a_1, a_2, \ldots, a_n\}$
+    \Statex \textbf{Initialization:} $count = 0$
+    \State \textbf{Output:} $count$
+
+    \For{$i = 0$ to $n$}
+      \If{$a_i \mod 2 = 0$}
+        \State $count = count + 1$
+      \EndIf
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
+
+Vemos aquí que la complejidad en tiempo es $O(n)$ ya que sólo hay un ciclo que recorre todos los elementos del vector
+de tamaño $n$ pero la complejidad en espacio es $O(1)$ ya que sólo utilizamos una variable \texttt{count} para guardar
+el contador con la cantidad de números pares. Esto significa que si el tamaño del vector $a$ se duplica, la cantidad de
+memoria utilizada no cambia, pero la cantidad de ciclos de CPU necesarios para completar la tarea se duplica.
+
+\subsection{¿Por qué no se utilizan GPUs para todo?}
+
+En la \ref{sec:introduccion} se mencionó que el \textit{ratio} de rendimiento entre una CPU y una GPU puede ser de 1:10
+(e incluso mayor), entonces una pregunta válida sería \textbf{¿por qué no se utilizan GPUs para todo?}. La respuesta a
+esto no es única, por un lado las GPUs están diseñadas para tener alto \textit{throughput} de operaciones matemáticas y
+de transferencia a memoria y suelen ser buenas para tareas de alta latencia que requieren pasajes grandes de información
+desde y hacia la memoria (óptimos para el procesamiento paralelo). Por el otro lado las CPUs están optimizadas para
+realizar tareas de baja latencia y tareas inherentemente secuenciales donde sorbepasan holgadamente a la
+\textit{performance} de una GPU. Por esto es que estos sistemas se llaman híbridos, ya que hay un hilo conductor
+secuencial y otros que se ejecutan en paralelo (a demanda).
+
+Un ejemplo típico de una tarea que es inherentemente secuencial es la ejecución de un sistema operativo, ya que
+todas las tareas que se ejecutan en un sistema operativo son secuenciales y dependen unas de otras. Otroe ejemplo es la
+orquestación GPU-CPU, ya que la CPU es la que orquesta las tareas que se ejecutan en la GPU y no al revés. Además la CPU
+es buenísima para tareas de baja latencia como la ejecución del software de una computadora personal.
+
+Por el otro lado, las GPUs son muy buenas para tareas que pueden ser paralelizadas y que requieren un alto
+\textit{throughput} de operaciones matemáticas y de transferencia a memoria. Un ejemplo típico de una tarea que puede ser
+paralelizada es el procesamiento de imágenes, ya que cada píxel de una imagen puede ser procesado de manera
+independiente. Otro ejemplo es el entrenamiento de un modelo de machine learning implica realizar millones o incluso
+miles de millones de operaciones matriciales (multiplicaciones de matrices) y cálculos matemáticos para ajustar los
+parámetros del modelo.
+
+Al desarrollar CUDA C, NVIDIA no sólo ha permitido paralelizar aplicaicones, sino que también ha permitido bajar el
+costo del desarrollo del software paralelo que estaba restringido a supercomputadoras masivamente paralelas. Esto se
+debe a que el mercado actual de GPUs es enorme ya que casi todas las PCs actuales tienen algún tipo de GPU instalada,
+habiendo más de 1000 millones de GPUs en el mundo que pueden ser utilizadas con CUDA, NVIDIA facilitó el desarrollo de
+aplicaciones paralelas, logrando que el desarrollo de software paralelo sea más accesible para todos.
+
+\subsection{Ley de Amdahl}
+
+Como veremos en la sección siguiente, no todas las aplicaciones pueden ser paralelizadas, y en muchas aplicaciones, sólo
+un porcentage del tiempo de ejecución de una aplicación puede ser paralelizado. El algoritmo utilizado es quien define
+la mejora de velocidad y no necesariamente el número de procesadores; en algún momento llegaremos a un límite donde
+finalmente por más que tengamos más recursos no se podrá paralelizar más el algoritmo. A esto se lo conoce como
+\href{https://es.wikipedia.org/wiki/Ley_de_Amdahl}{ley de Amdahl}.
+
+La ley de Amdahl es una fórmula aritmética simple que se utiliza para estimar la potencial mejora de velocidad que puede
+obtenerse al paralelizar una parte del código de un programa secuencial en múltiples procesadores. La idea de la fórmula
+es que hay una parte que puede ser paralelizada y otra parte que no puede ser paralelizada, y la mejora de velocidad se
+calcula en función del porcentaje de código que se puede paralelizar y el número de procesadores utilizados.
+\cite{Tuomanen2018HandsOnGPU}
+
+La ley de Amdahl se expresa matemáticamente como:
+
+\[
+  S = \frac{1}{(1 - P) + \frac{P}{N}}
+\]
+
+donde:
+
+\begin{itemize}
+  \item $S$ es la velocidad de mejora del programa.
+  \item $P$ es la fracción del programa que se puede paralelizar (entre 0 y 1).
+  \item $N$ es el número de procesadores utilizados.
+\end{itemize}
+
+Es bastante sencillo ver que si la parte paralelizable es $0\%$ (es decir, $P = 0$), no existe mejora de velocidad
+($S = 1$). Por otro lado, si la parte paralelizable es $100\%$ (es decir, $P = 1$), la mejora de velocidad es igual al
+número de procesadores utilizados ($S = N$).
+
+Supongamos que $P = 0.5$ (es decir, el $50\%$ del programa puede ser paralelizado) y que utilizamos $N = 2$ (es decir,
+utilizamos dos procesadores). En este caso, la mejora de velocidad sería:
+
+\[
+  S = \frac{1}{(1 - 0.5) + \frac{0.5}{2}} = \frac{1}{0.5 + 0.25} = \frac{1}{0.75} \approx 1.33
+\]
+
+\subsection{Desafíos en la programación paralela}
+
+Podríamos pensar entonces que la programación paralela puede ser una solución general para resolver todos los problemas
+de \textit{performance} y debería utilizarse siempre. Aunque como vimos con la ley de Amdahl, no todos los problemas son
+$100\%$ paralelizables, y en general sólo podremos intentar paralelizar una parte de la aplicación, mientras que otra
+parte deberá seguir siendo secuencial.
+
+El primer problema, es que es difícil diseñar algoritmos paralelos, ya que requiere pensar los problemas de formas
+anti-intuitivas que, muchas veces, no son sencillas de resolver para que tengan el mismo nivel de complejidad
+computacional que los algoritmos secuenciales. La performance de los algoritmos paralelos son muy sensibles a los datos
+de entrada, ya que esencialmente la paralelización se basa en el procesamiento de datos de manera limitada por la
+velocidad de acceso a memoria. Pero aún si salváramos estos problemas que son, méramente técnicos, nos encontraríamos
+con la pregunta más profunda: \textbf{¿todos los problemas son teóricamente paralelizables?}.
+
+\newpage % ------------------------------------------------------------------------------------------------------------
+
+\subsection{Los límites de la programación paralela}
+
+En la teoría de complejidad computacional, P es una clase \footnote{En matemáticas, una clase es una colección de
+conjuntos (u otros objetos matemáticos) que pueden ser definidos unívocamente por una propiedad compartida por todos los
+miembros de ese conjunto} de complejidad que contiene todos los problemas de decisión que pueden ser resueltos por una
+máquina de Turing determinista en tiempo polinomial. Sin embargo,
+\href{https://en.wikipedia.org/wiki/Nick_Pippenger}{Nicholas Pippenger} realizó una investigación exhaustiva sobre
+circuitos con profundidad polilogarítmica y tamaño polinomial y sugirió una interesante clase de complejidad a estudiar
+que sería la clase de problemas solucionables por máquinas paralelas en tiempo polilogarítmico \footnote{Un problema es
+polilogarítmico si su complejidad es $O((\log n)^k)$ para algún $k$} usando un número polinomial de procesadores. Esta
+clase se conoce como \textbf{NC} (por \textit{Nick's class}). (\textcite{stockmeyer1987})
+
+Por otro lado los problemas $P-completos$ son de interés porque parecen carecer de soluciones altamente paralelas.
+Es decir, los diseñadores de algoritmos han fallado en encontrar algoritmos \textit{NC} para cualquier problema
+$P-completo$. En consecuencia, la promesa de la computación paralela, es decir, que aplicar más procesadores a un
+problema parece ser imposible en toda la clase de problemas $P-completos$. Dejando abierta la siguiente pregunta:
+(\textcite{greenlaw1995})
+
+\[
+  P \stackrel{?}{=} NC
+\]
+
+Esta clase P se puede pensar como los problemas tratables (tesis de Cobham), por lo que \textit{NC} se puede pensar como
+los problemas que se pueden resolver eficientemente en una computadora paralela. NC es un subconjunto de P porque los
+cálculos paralelos polilogarítmicos se pueden simular mediante cálculos secuenciales polinomiales. Pero no se sabe si
+$NC \stackrel{?}{=} P$, pero \textbf{la mayoría de los investigadores sospechan que esto es falso}, lo que significa que
+probablemente hay algunos problemas tratables que son \textbf{"intrínsecamente secuenciales"} y no se pueden acelerar
+significativamente utilizando paralelismo. Así como la clase NP-completo se puede pensar como "probablemente
+intratable", así que \textbf{la clase P-completo, cuando se utilizan reducciones NC, se puede pensar como "probablemente
+no paralelizable" o "probablemente \textit{intrínsecamente secuencial}"}. Pero por más que parezca extraño, no hay
+ninguna demostración formal de que $P \neq NC$ o que $P = NC$. \\
+
+Con lo cual, la respuesta a la pregunta de si todos los problemas son paralelizables es que \textbf{NO, no todos los
+problemas son paralelizables ya que hay ciertos problemas que son intrínsecamente secuenciales} (o no se ha encontrado
+una forma de paralelizarlos).
+
+\subsection{Modelos y Lenguajes de Programación Paralela}
+
+Hay varios lenguajes de programación paralela propuestos para abordar el problema de la programación paralela, aunque
+aquí sólo veremos CUDA, aquí tienen una lista de algunos de los lenguajes más populares:
+
+\begin{itemize}
+  \item \textbf{OpenMP}: es una API de programación en paralelo que se basa en directivas de compilador y funciones de
+    biblioteca para permitir la paralelización de aplicaciones en sistemas de memoria compartida.
+  \item \textbf{MPI}: es una biblioteca de paso de mensajes que permite la comunicación entre procesos en un sistema
+    distribuido.
+  \item \textbf{OpenACC}: Es un estándar de programación para la computación paralela desarrollado por Cray, CAPS,
+    Nvidia y PGI. El estándar está diseñado para simplificar la programación paralela de sistemas heterogéneos CPU/GPU.
+  \item \textbf{OpenCL}: Es un estándar abierto para la programación de sistemas heterogéneos que consta de CPUs, GPUs y
+    otros dispositivos de cómputo.
+  \item \textbf{CUDA}: Es una plataforma de computación paralela y un modelo de programación desarrollado por NVIDIA para
+    sus GPUs.
+\end{itemize}
+
+\input{../shared.tex/common_footers.tex}
+
+\end{document}
