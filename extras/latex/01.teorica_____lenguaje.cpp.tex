@@ -4,7 +4,7 @@
 
 \begin{center}
   \LARGE\textbf{\coursename} \\
-  \Large{Introducción al Lenguaje C\+\+} \\
+  \Large{Introducción al Lenguaje C++} \\
   \normalsize{\currentsemester, \currentyear} \\
   \vspace{1em}
   \hrule
@@ -23,12 +23,12 @@
 \begin{tcolorbox}[colback=mint,colframe=mint!75!black,arc=0pt,outer arc=0pt]
   \textbf{¡Bienvenidos a Programación con Algoritmos 1!} \\
 
-  Esta es una guía adicional para que tengas de referencia del lenguaje C\+\+ que vamos a utilizar en la materia. El
+  Esta es una guía adicional para que tengas de referencia del lenguaje C++ que vamos a utilizar en la materia. El
   objetivo de esta guía es que puedas:
 
   \begin{itemize}
-    \item \textbf{Compilar y ejecutar código en C / C\+\+}
-    \item \textbf{Aprender y repasar los conceptos básicos de C / C\+\+} que son necesarios para la materia.
+    \item \textbf{Compilar y ejecutar código en C / C++}
+    \item \textbf{Aprender y repasar los conceptos básicos de C / C++} que son necesarios para la materia.
   \end{itemize}
 
   ¡Consultá todo lo que no entiendas de la práctica!
@@ -39,12 +39,12 @@
 \subsection{Introducción}
 \label{sec:set_up}
 
-Para poder trabajar en la materia vas a tener que tener instalado un compilador C\+\+ para poder probar tus propios
+Para poder trabajar en la materia vas a tener que tener instalado un compilador C++ para poder probar tus propios
 ejercicios y problemas. Si sólo vas a correr los ejemplos y problemas vistos en clase podés utilizar simplemente la
 plataforma de programación competitiva de la universidad en:
 \href{https://cloud-stack.palermo.edu:35500/users/sign_in}{UP Competitive Programming Platform}.
 
-\subsection{¿Cómo instalo un compilador de C\+\+?}
+\subsection{¿Cómo instalo un compilador de C++?}
 
 La forma más sencilla es utilizando \texttt{docker}. \href{https://www.docker.com/products/docker-desktop/}{Docker
 Desktop} es una aplicación que permite crear y administrar contenedores de Docker en tu computadora. Un contenedor de
@@ -67,8 +67,8 @@ materia. Para eso tenés que ir al directorio \texttt{docker/} que se encuentra 
 docker build -t algoritmos_1 .
 \end{verbatim}
 
-Esto va a crear una imagen de docker con el nombre \texttt{algoritmos\_1} que tiene instalado el compilador de C\+\+ y
-todas las herramientas necesarias para poder compilar y ejecutar código en C\+\+.
+Esto va a crear una imagen de docker con el nombre \texttt{algoritmos\_1} que tiene instalado el compilador de C++ y
+todas las herramientas necesarias para poder compilar y ejecutar código en C++.
 
 \textbf{¡Con esto ya podés correr los ejemplos y ejercicios de la materia!}
 
@@ -76,14 +76,14 @@ todas las herramientas necesarias para poder compilar y ejecutar código en C\+\
 
 \subsection{Hello World en C++}
 
-En general uno asocia C\+\+ con la programación orientada a objetos, sin embargo en esta materia, vamos a utilizar el
-lenguaje C\+\+ como un C potenciado. Es decir, vamos a utilizar la sintaxis de C\+\+ pero sin utilizar las
+En general uno asocia C++ con la programación orientada a objetos, sin embargo en esta materia, vamos a utilizar el
+lenguaje C++ como un C potenciado. Es decir, vamos a utilizar la sintaxis de C++ pero sin utilizar las
 características de la programación orientada a objetos, pero vamos a tomar ventaja de las bibliotecas de alto nivel que
 ofrece, como las estructuras de datos ya incluídas y sus algoritmos para poder tener un código que se ejecute en alto
 nivel que, además, pueda compilar C que es algo que verán en el resto de la carrera.
 
-El código de ejemplo para imprimir un Hello World es un poco diferente en C\+\+ que en C, porque la interfaz de entrada
-y salida de datos es diferente. En C\+\+ se utiliza la biblioteca \texttt{iostream} para la entrada y salida:
+El código de ejemplo para imprimir un Hello World es un poco diferente en C++ que en C, porque la interfaz de entrada
+y salida de datos es diferente. En C++ se utiliza la biblioteca \texttt{iostream} para la entrada y salida:
 
 \begin{lstlisting}[language=C++, caption={Código de ejemplo Hello World en C++}]
 #include <iostream>  // esto es lo mismo que en C, pero sin la extensión .h
@@ -100,16 +100,16 @@ tiene en su biblioteca estándar algunas funcionalidades que necesitamos para po
 
 \newpage
 
-\subsection{Corriendo programas en C\+\+}
+\subsection{Corriendo programas en C++}
 
-Para ejecutar programas en C\+\+ pueden utilizar una instalación local, pueden usar `docker` como ya vimos en la sección
+Para ejecutar programas en C++ pueden utilizar una instalación local, pueden usar `docker` como ya vimos en la sección
 anterior \ref{sec:crear_contenedor}, pueden utilizar la
 \href{https://cloud-stack.palermo.edu:35500/users/sign_in}{plataforma de programación competitiva de la universidad}, o
 pueden utilizar alguna plataforma como \href{https://onecompiler.com/cpp}{OneCompiler} o
 \href{https://www.onlinegdb.com/online_c++_compiler}{OnlineGDB}.
 
 En cualquier caso si van a utilizar un contenedor de docker o una instalación local de \texttt{g++} para compilar el
-código, el comando para compilar un programa en C\+\+ es el siguiente:
+código, el comando para compilar un programa en C++ es el siguiente:
 
 \begin{verbatim}
 g++ -Wall -o programa programa.cc
@@ -121,17 +121,17 @@ archivo de código fuente que queremos compilar.
 
 \newpage
 
-\subsection{Repaso de C y C\+\+}
+\subsection{Repaso de C y C++}
 
 \begin{tcolorbox}[colback=yellow,colframe=yellow!75!black,arc=0pt,outer arc=0pt]
 \textbf{ATENCIÓN}
 
-En esta sección vamos a repasar los conceptos básicos de C\+\+, algunas cosas no van a estar explicadas porque el
-  objetivo de esta materia no es ense\~nar C\+\+, con lo cual si alguna de las cosas que están escritas acá no se
+En esta sección vamos a repasar los conceptos básicos de C++, algunas cosas no van a estar explicadas porque el
+  objetivo de esta materia no es ense\~nar C++, con lo cual si alguna de las cosas que están escritas acá no se
   entiende, podrás preguntar en clase o investigar un poco.
 
   Los conceptos IMPORTANTES van a estar explicados, pero la sintaxis del lenguaje no va a estar explicada en detalle,
-  porque el libro de C\+\+ en sí mismo es un libro de más de 600 páginas y no es obligatorio para la materia,
+  porque el libro de C++ en sí mismo es un libro de más de 600 páginas y no es obligatorio para la materia,
   simplemente aprendé la sintaxis.
 
   Es cierto que escribir \texttt{print "hola"} puede resultar más ameno que escribir \texttt{std::cout << "hola" <<
@@ -142,8 +142,25 @@ En esta sección vamos a repasar los conceptos básicos de C\+\+, algunas cosas 
 
 \subsubsection{Compilación y ejecución}
 
-Este apartado está repetido en la práctica para que puedas ver cómo se compila y ejecuta un programa en C\+\+.
+Este apartado está repetido en la práctica para que puedas ver cómo se compila y ejecuta un programa en C y C++.
 Supongamos que tenés el siguiente código en un archivo llamado \texttt{cuadrado.cc}:
+
+\textbf{Versión en C}
+
+\begin{lstlisting}[language=C++, caption={Cuadrado de un número}]
+#include <stdio.h>
+
+int main() {
+  int n;
+
+  scanf("%d", &n); // Lee un número desde la entrada estándar
+  printf("%d\n", n*n); // Imprime el cuadrado del número
+
+  return 0;
+}
+\end{lstlisting}
+
+\textbf{Versión en C++}
 
 \begin{lstlisting}[language=C++, caption={Cuadrado de un número}]
 #include <iostream>
@@ -173,11 +190,11 @@ luego imprimirá el cuadrado de ese número.
 
 \subsubsection{Sintaxis básica}
 
-El lenguaje C\+\+ es un lenguaje de programación de propósito general, que se caracteriza por su simplicidad y
-eficiencia. Un programa en C\+\+ se compone de una o más funciones, siendo la función \texttt{main} la función principal
+El lenguaje C++ es un lenguaje de programación de propósito general, que se caracteriza por su simplicidad y
+eficiencia. Un programa en C++ se compone de una o más funciones, siendo la función \texttt{main} la función principal
 que se ejecuta al iniciar el programa. La sintaxis básica es la siguiente:
 
-\begin{lstlisting}[language=C\+\+, caption={Sintaxis básica de un programa en C}]
+\begin{lstlisting}[language=C++, caption={Sintáxis básica de un programa en C++}]
 // #include sirve para incluir bibliotecas
 #include <iostream>  // Biblioteca para entrada y salida de datos
 #include <algorithm> // Biblioteca para algoritmos predefinidos
@@ -195,7 +212,7 @@ int main(int argc, char *argv[]) {
 
 \subsubsection{Variables y tipos de datos}
 
-En C\+\+, las variables se utilizan para almacenar datos y deben ser declaradas antes de ser utilizadas. Los tipos de
+En C++, las variables se utilizan para almacenar datos y deben ser declaradas antes de ser utilizadas. Los tipos de
 datos más comunes en C son:
 
 \begin{itemize}
@@ -210,8 +227,6 @@ Además se pueden utilizar modificadores de tipo como \texttt{unsigned} para ent
 enteros de mayor tamaño. Por ejemplo, \texttt{unsigned int} es un entero sin signo que puede almacenar valores desde 0
 hasta $2^{32-1}$, mientras que \texttt{long int} es un entero de mayor tamaño que puede almacenar valores desde
 $-2^{63}$ hasta $2^{63-1}$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HASTA ACA
 
 \subsubsection{Operadores}
 
@@ -231,20 +246,26 @@ operador de módulo que nos devuelve el resto de una división entera. Por ejemp
 resultado es \texttt{1} porque \texttt{5 / 2} da como resultado \texttt{2} y el resto es \texttt{1}.
 
 Los operadores lógicos se utilizan para combinar expresiones que devuelve un valor de verdad (\texttt{true} o
-\texttt{false}. \textbf{No olvidar que FALSE en C es}: \texttt{NULL}, \texttt{0} o \texttt{false}, todo lo demás se
-considera \texttt{true}.
+\texttt{false}. \textbf{En C y C++}: \texttt{NULL}, \texttt{0} o \texttt{false}, todo lo demás se considera
+\texttt{true}.
 
-Los operadores de comparación se utilizan para comparar dos valores y devolver un valor de verdad.
+Los operadores de comparación se utilizan para comparar dos valores y devolver un valor de verdad. Con lo cual si
+tenemos una expresión como \texttt{5 > 3} el resultado es \texttt{true}, mientras que si tenemos \texttt{5 < 3} el
+resultado es \texttt{false} y estas expresiones se pueden combinar con los operadores lógicos para formar expresiones
+más complejas, por ejemplo \texttt{(a > 3) \&\& (b < 5)}.
 
-Los operadores de asignación se utilizan para asignar un valor a una variable. Los operadores de asignación compuestos
-(\texttt{+=}, \texttt{-=}, \texttt{*=}, \texttt{/=}, \texttt{\%=}) son una forma abreviada de escribir una operación de
-asignación combinada con una operación aritmética. Por ejemplo, \texttt{x += 5} es equivalente a \texttt{x = x + 5}.
-Recordar que en la asignación existe el \texttt{lvalue} y el \texttt{rvalue}, donde el \texttt{lvalue} es la variable
+Los operadores de asignación se utilizan para asignar un valor a una variable, por ejemplo \texttt{x = 5} asigna el
+valor \texttt{5} a la variable \texttt{x}. Además hay operadores de asignación compuestos (\texttt{+=}, \texttt{-=},
+\texttt{*=}, \texttt{/=}, \texttt{\%=}) son una forma abreviada de escribir una operación de asignación combinada con
+una operación aritmética. Por ejemplo, \texttt{x += 5} es equivalente a \texttt{x = x + 5}.
+
+En una operación de asignación existe el \texttt{lvalue} y el \texttt{rvalue}, donde el \texttt{lvalue} es la variable
 donde se va a almacenar el resultado de la operación y el \texttt{rvalue} es el valor que se va a asignar. Esta es la
 razón por la cual no se puede hacer una asignación como \texttt{5 = x} ya que \texttt{5} no es un \texttt{lvalue}, lo
 que significa que no se puede asignar un valor a él.
 
-Por último, los operadores bit a bit se utilizan para realizar operaciones a nivel de bits en números enteros.
+Además existen operadores bit a bit se utilizan para realizar operaciones a nivel de bits, estos son importantes para
+poder manipular datos a nivel de bits, lo cual es útil para la optimización de memoria.
 
 \begin{itemize}
   \item \texttt{\&}: \texttt{5 \& 3} da como resultado \texttt{1} porque en binario \texttt{5} es \texttt{101} y
@@ -276,7 +297,7 @@ comunes son:
 
 Ejemplos:
 
-\begin{lstlisting}[language=C, caption={Estructuras de control en C}]
+\begin{lstlisting}[language=C++, caption={Estructuras de Control}]
 #include <stdio.h>
 
 int main() {
@@ -310,9 +331,9 @@ int main() {
 
 \subsubsection{Punteros}
 
-Los punteros son una característica poderosa de C que permite manipular direcciones de memoria directamente. Un puntero
-es una variable que almacena la dirección de memoria de otra variable. Se declaran utilizando el operador \texttt{*} y
-se accede al valor al que apuntan utilizando el operador \texttt{\&}. Por ejemplo:
+Los punteros son una característica poderosa de C y C++ que permite manipular direcciones de memoria directamente. Un
+puntero es una variable que almacena la dirección de memoria de otra variable. Se declaran utilizando el operador
+\texttt{*} y se accede al valor al que apuntan utilizando el operador \texttt{\&}. Por ejemplo:
 
 \begin{lstlisting}[language=C, caption={Ejemplo de punteros en C}]
 #include <stdio.h>
@@ -333,7 +354,7 @@ int main() {
 
 \subsubsection{Funciones}
 
-Las funciones en C son bloques de código que realizan una tarea específica y pueden ser reutilizadas en diferentes
+Las funciones en C++ son bloques de código que realizan una tarea específica y pueden ser reutilizadas en diferentes
 partes del programa. Se declaran utilizando la siguiente sintaxis:
 
 \begin{lstlisting}[language=C, caption={Declaración de una función en C}]
@@ -358,6 +379,64 @@ int main() {
 }
 \end{lstlisting}
 
+Hay que tener algunas consideraciones cuando se llaman a funciones, porque en C y C++ los argumentos (o parámetros) de
+las funciones se pasan \textbf{por valor}, lo que significa que se crea una copia de los argumentos al llamar a la
+función. Esto tiene una ventaja y una desventaja. La ventaja es que no se pueden modificar los argumentos originales
+desde la función, lo que muchas veces es útil cuando no queremos que la función modifique los datos que le pasamos. La
+desventaja es que si los datos que vamos a pasar son muy grandes, la llamada a esa función se vuelve extremádamente
+ineficiente. Esto es un problema súper común y hay que tenerlo en cuenta.
+
+En C, la solución a este problema es utilizar punteros para pasar los argumentos que tienen un tamaño grande o que se
+desea modificar. Por ejemplo supongamos que queremos pasar un valor que queremos modificar en una función:
+
+\begin{lstlisting}[language=C, caption={Ejemplo de paso por puntero en C}]
+#include <stdio.h>
+
+void incrementar(int *x) { // El argumento x se pasa como puntero
+  (*x)++; // Incrementa el valor al que apunta x
+}
+
+int main() {
+  int numero = 5;
+  incrementar(&numero); // Llama a la funcion incrementar pasando la direccion de numero
+  printf("Numero incrementado: %d\n", numero); // Imprime el numero incrementado
+  return 0;
+}
+\end{lstlisting}
+
+Si se fijan, la forma de llamar a la función incrementar es igual a la sintaxis utilizada en la función \texttt{printf},
+porque en ambos casos se está pasando la dirección de memoria de la variable \texttt{numero} para que la función pueda
+modificar su valor original.
+
+En C++ se puede hacer lo mismo, pero la sintaxis es mucho más sencilla gracias que tiene una sintaxis especial para
+pasar argumentos \textbf{por referencia} que es similar a las direcciones de memoria. La diferencia es que no es
+necesario dereferenciarla para poder usarla dentro de la función como sí ocurre dentro de los punteros.
+
+¿Cómo sería la sintaxis para pasar un argumento por referencia en C++? Simplemente se utiliza el operador \texttt{\&}
+en la declaración de la función para indicar que el argumento se pasa por referencia, y luego se puede modificar el
+valor original desde la función. Por ejemplo:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de paso por referencia en C++}]
+#include <iostream>
+
+using namespace std;
+
+void incrementar(int &x) { // El argumento x se pasa por referencia
+  x++; // Incrementa el valor de x
+}
+
+int main() {
+  int numero = 5;
+  incrementar(numero); // Llama a la funcion incrementar
+  cout << "Numero incrementado: " << numero << endl; // Imprime el numero incrementado
+  return 0;
+}
+\end{lstlisting}
+
+En definitiva es muy parecido a pasar un puntero en C, con la diferencia de que en C++ no es necesario utilizar el
+operador \texttt{*} para declarar un puntero, ni el operador \texttt{\&} para acceder al valor al que apunta el puntero,
+sino que se utiliza el operador \texttt{\&} para indicar que el argumento se pasa por referencia, y luego se puede
+acceder al valor original directamente desde la función.
 
 \subsubsection{Manejo de memoria}
 
@@ -390,8 +469,23 @@ int main() {
 }
 \end{lstlisting}
 
+Este tipo de cosas pueden resultar un poco complicadas al principio porque ese necesario tener cuidado de no irnos de
+los límites de memoria asignada para evitar incurrir en errores de memoria (\textit{segmentation fault}), y también es
+necesario recordar liberar la memoria asignada para evitar fugas de memoria (\textit{memory leaks}). Los \textit{memory
+leaks} ocurren cuando se asigna memoria dinámica pero no se libera, lo que puede llevar a que el programa consuma cada
+vez más memoria y eventualmente se quede sin memoria disponible, lo que puede causar que el programa se bloquee o se
+comporte de manera inesperada, a esto se lo conoce muchas veces como OOM (\textit{Out of Memory}).
 
-\subsubsection{Matrices y Vectores}
+Sin embargo en C++ tenemos la ventaja de que el manejo de memoria es mucho más sencillo gracias a la utilización de
+contenedores de la biblioteca estándar como \texttt{std::vector} que se encargan automáticamente de asignar y liberar
+memoria, lo que nos permite centrarnos en la lógica de nuestro programa sin tener que preocuparnos por el manejo de
+memoria como veremos en la sección específica de C++ \ref{sec:cpp}.
+
+Sin embargo para algunos ejercicios utilizaremos memoria dinámica en C, por lo cual es importante que entiendan cómo
+funciona el manejo de memoria en C, y cómo se puede utilizar para crear estructuras de datos dinámicas como listas
+enlazadas, árboles, grafos, etc.
+
+\subsubsection{Matrices}
 
 Al pedir memoria con \texttt{malloc} C nos retorna un puntero a la memoria asignada, y esta memoria asignada es
 contigua, con lo cual podemos utilizar punteros o subíndices para acceder a los elementos de la memoria asignada. Por
@@ -454,7 +548,7 @@ int main() {
 \end{lstlisting}
 
 
-\subsubsection{Entrada y salida de datos}
+\subsubsection{Entrada y salida de datos en C}
 
 C proporciona funciones para la entrada y salida de datos a través de la biblioteca \texttt{stdio.h}. Las funciones más
 comunes son:
@@ -517,6 +611,62 @@ int main() {
 }
 \end{lstlisting}
 
+\subsubsection{Entrada y salida de datos en C++}
+
+En C++, la entrada y salida de datos se realiza a través de la biblioteca \texttt{iostream}, ya que el C++ utiliza
+el concepto de flujos para la entrada y salida de datos. Los objetos más comunes para la entrada y salida de datos son:
+
+\begin{itemize}
+  \item \texttt{std::cin}: Para leer datos desde la entrada estándar (teclado).
+  \item \texttt{std::cout}: Para imprimir datos en la consola.
+\end{itemize}
+
+La sintaxis para la entrada y salida de datos en C++ es diferente a la de C, ya que se utilizan los operadores de inserción
+(\texttt{<<}) y extracción (\texttt{>>}) para enviar y recibir datos a través de los flujos. Podemos pensar esos
+operadores como flechas que indican la dirección del flujo de datos, por ejemplo \texttt{std::cout << "Hola"} indica que
+la cadena "Hola" se envía al flujo de salida estándar, mientras que \texttt{std::cin >> x} indica que el valor ingresado
+por el usuario se almacena en la variable \texttt{x}.
+
+Como se puede ver no es necesario indicar la dirección de memoria de la variable al leer datos desde la entrada
+estándar, como se hace en C con \texttt{scanf}, ya que en C++ el operador de extracción (\texttt{>>}) se encarga de
+almacenar el valor ingresado directamente en la variable, lo que hace que la sintaxis sea más sencilla y fácil de
+entender.
+
+Por ejemplo si quisiéramos leer una matriz de \texttt{filas x columnas} enteros desde la entrada estándar en C++,
+podríamos hacerlo de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Lectura de datos desde la entrada estándar en C++}]
+#include <iostream>
+
+using namespace std;
+
+int main() {
+  int filas, columnas;
+  cin >> filas >> columnas; // lee las dimensiones de la matriz
+
+  int **matriz = new int*[filas]; // asigna memoria para las filas
+  for (int i = 0; i < filas; i++) {
+    matriz[i] = new int[columnas]; // asigna memoria para las columnas
+  }
+
+  // lee los datos de la matriz
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      cin >> matriz[i][j];
+    }
+  }
+
+  // imprime la matriz
+  cout << "matriz:" << endl;
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      cout << matriz[i][j] << " ";
+    }
+    cout << endl;
+  }
+}
+\end{lstlisting}
+
 \newpage % ------------------------------------------------------------------------------------------------------------
 
 \subsubsection{Estructuras}
@@ -552,7 +702,7 @@ int main() {
 
 \newpage % ------------------------------------------------------------------------------------------------------------
 
-\subsubsection{Cadenas}
+\subsubsection{Cadenas en C}
 
 En C, las cadenas de caracteres se representan como arreglos de caracteres terminados en un carácter nulo
 (\texttt{NULL}). Es \textbf{muy} importante recordar que para ser una cadena válida, el último carácter debe ser el
@@ -630,10 +780,39 @@ el caracter nulo.
 
 \newpage % ------------------------------------------------------------------------------------------------------------
 
+
+\subsubsection{Cadenas en C++}
+
+En C++, las cadenas de caracteres se pueden representar utilizando la clase \texttt{string} de la biblioteca
+estándar, que proporciona una forma más fácil y segura de manejar cadenas de caracteres en comparación con las cadenas
+en C. La clase \texttt{string} se encuentra en la biblioteca \texttt{<string>} y se puede utilizar de la siguiente
+manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de cadenas en C++}]
+#include <iostream>
+#include <string> // Incluye la biblioteca para manejo de cadenas
+
+using namespace std;
+
+int main() {
+  string cadena = "Hola"; // Declara una cadena utilizando la clase string
+  cout << "La cadena es: " << cadena << endl; // Imprime la cadena
+  cout << "El largo de la cadena es: " << cadena.length() << endl; // Imprime el largo de la cadena
+
+  return 0;
+}
+\end{lstlisting}
+
+Vemos entonces que estas cadenas son mucho más fáciles de manejar que las cadenas en C ya que no hay que hacer ningún
+tipo de administración de la memoria ni preocuparse por el carácter nulo al final de la cadena o por el tamaño máximo de
+la cadena, ya que la clase \texttt{string} se encarga automáticamente de gestionar la memoria y el tamaño de la cadena.
+Además, la clase \texttt{string} proporciona una gran cantidad de funciones para manipular cadenas de caracteres, como
+concatenar, comparar, buscar, etc.
+
 \subsection{Scopes}
 
-En C, el \textbf{scope} (o ámbito) de una variable se refiere a la región del código donde la variable es accesible.
-Existen diferentes tipos de scopes en C:
+En C y C++, el \textbf{scope} (o ámbito) de una variable se refiere a la región del código donde la variable es
+accesible. Existen diferentes tipos de scopes en C:
 
 \begin{itemize}
   \item \textbf{Scope global}: Las variables declaradas fuera de cualquier función tienen un scope global y son
@@ -700,15 +879,22 @@ int main() {
 }
 \end{lstlisting}
 
-En las versiones antiguas de C, las variables había que declararlas al principio del bloque. En general se recomienda
-declarar las variables lo más cerca posible de su uso, para evitar confusiones y mejorar la legibilidad del código.
+En versiones antiguas de C (C89), las variables había que declararlas al principio del bloque o de las funciones. Sin
+embargo eso ya no es necesario en las versiones modernas de C ni en e C++, de hecho mi recomendación para esta materia
+es que siempre que sea posible se declare la variable lo más cerca posible de su uso, para evitar confusiones y mejorar
+la legibilidad del código. Por ejemplo, en un \texttt{for} es común declarar la variable de iteración dentro del mismo
+\texttt{for}.
 
 \newpage
+
 \subsection{Errores}
 
-Algo fundamental al programar es poder \textbf{entender} y \textbf{corregir} los errores que se vayan presentando. De
-hecho, considero que la habilidad de entender los errores y warnings de un compilador es una habilidad que se debe
-intentar desarrollar, ya que es un componente clave del proceso de programación.
+Hay algo que no se explica en los libros de algoritmos porque excede el ámbito de esos libros, pero los errores de un
+lenguaje de programación son un tema fundamental a la hora de programar. Porque no sólo es importante saber escribir
+código correcto, sino también es importante saber \textbf{entender} los errores del compilador para poder luego
+\textbf{corregirlos}. Es por eso que independientemente del lenguaje de programación que vayan a utilizar en un futuro
+profesional, deben conocer los errores y los \textit{warnings} que el compilador (o el intérprete) les entregue para
+poder saber qué es lo que está mal.
 
 \subsubsection{Errores de compilación}
 
@@ -794,6 +980,38 @@ programa abruptamente.
 $ ./ejemplo 
 [1]    29897 segmentation fault  ./ejemplo
 \end{verbatim}
+
+\subsection{C++}
+\label{sec:cpp}
+
+Hasta acá lo que vimos fueron los conceptos básicos de C y algunas cosas que son paralelas en C++. Si bien C++ se lo
+asocia con la programación orientada a objetos (OOP), en esta materia no vamos a ver nada de OOP, pero sí vamos a
+utilizar los contenedores de C++ que son parate de la biblioteca estándar de C++ (STL) y que nos permiten manejar
+estructuras de datos como vectores, listas, colas, pilas, etc. de una forma mucho más sencilla que en C, ya que se
+encargan automáticamente de gestionar la memoria y el tamaño de las estructuras de datos, lo que nos permite centrarnos
+en la lógica de nuestro programa sin tener que preocuparnos por el manejo de memoria como vimos anteriormente.
+
+\subsubsection{Contenedores de la biblioteca estándar de C++}
+
+Los contenedores de la biblioteca estándar de C++ (STL) son una colección de clases y funciones que proporcionan
+estructuras de datos que manejan la memoria por nosotros y tienen una interfaz fácil de usar. Algunos de los
+contenedores más comunes son:
+
+\begin{itemize}
+  \item \texttt{std::vector}: Un arreglo dinámico que puede cambiar de tamaño automáticamente.
+  \item \texttt{std::list}: Una lista enlazada que permite inserciones y eliminaciones eficientes.
+  \item \texttt{std::deque}: Una cola de doble extremo que permite inserciones y eliminaciones eficientes en ambos extremos.
+  \item \texttt{std::set}: Un conjunto que almacena elementos únicos en orden.
+  \item \texttt{std::unordered\_set}: Un conjunto que almacena elementos únicos sin orden.
+  \item \texttt{std::map}: Un mapa que almacena pares clave-valor en orden.
+  \item \texttt{std::unordered\_map}: Un mapa que almacena pares clave-valor sin orden.
+\end{itemize}
+
+Cuando uno utiliza estos contenedores, no es necesario preocuparse por el manejo de memoria, ya que se encargan
+automáticamente de asignar y liberar memoria según sea necesario. Además, estos contenedores proporcionan una gran
+cantidad de funciones para manipular los datos almacenados, como insertar, eliminar, encontrar el primer elemento, el
+último elemento y todos funcionan con algo que en C++ se llama iteradores, que son objetos que permiten recorrer los
+elementos de un contenedor de una forma sencilla y eficiente cada estructura de datos.
 
 \input{../shared.tex/common_footers.tex}
 

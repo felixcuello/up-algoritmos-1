@@ -3,10 +3,8 @@ all: compile_latex clean
 .PHONY: all clean install_latex install
 
 current:
-	$(eval FILE := parcial.2)
+	$(eval FILE := 01.teorica_____lenguaje.cpp)
 	pdflatex -shell-escape $(FILE).tex
-	open $(FILE).pdf
-	$(eval FILE := parcial.2.solucionado)
 	pdflatex -shell-escape $(FILE).tex
 	open $(FILE).pdf
 
