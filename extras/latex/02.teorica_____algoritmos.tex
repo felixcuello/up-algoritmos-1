@@ -380,7 +380,7 @@ primos o no. Si bien el algoritmo no es muy eficiente, es fácil de entender y d
 
 \begin{lstlisting}[language=C]
 bool es_primo(int n) {
-    if (n <= 1) return false; // no es primo porque 
+    if (n <= 1) return false; // no es primo porque los primos son mayores que 1
     for (int i = 2; i <= n; i++)
         if (n % i == 0) return false; // No es primo
     return true; // Es primo
@@ -467,9 +467,9 @@ siguiente manera:
 
 \begin{lstlisting}[language=C]
 int arr[10]; // Un array de 10 enteros
-int arr15] = {1, 2, 3, 4, 5}; // Un array de 5 enteros inicializado
-int arr2] = {1, 2, 3, 4, 5}; // Un array de 5 enteros inicializado
-int *arr3= malloc(10 * sizeof(int)); // Un array de 10 enteros dinamico
+int arr1[5] = {1, 2, 3, 4, 5}; // Un array de 5 enteros inicializado
+int arr2[5] = {1, 2, 3, 4, 5}; // Un array de 5 enteros inicializado
+int *arr3 = malloc(10 * sizeof(int)); // Un array de 10 enteros dinamico
 \end{lstlisting}
 
 Los arrays se pueden recorrer utilizando un bucle \texttt{for} o \texttt{while}, y se accede a sus elementos utilizando

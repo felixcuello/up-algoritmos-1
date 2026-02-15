@@ -241,7 +241,7 @@ Los operadores más comunes son:
   \item Bit a bit: \texttt{\&}, \texttt{\textbar}, \texttt{\textasciicircum}, \texttt{\textasciitilde}, \texttt{<<}, \texttt{>>}.
 \end{itemize}
 
-Los operadores aritméticos no rquieren una explicación adicional, con excepción del operador \texttt{\%} que es el
+Los operadores aritméticos no requieren una explicación adicional, con excepción del operador \texttt{\%} que es el
 operador de módulo que nos devuelve el resto de una división entera. Por ejemplo, si tenemos \texttt{5 \% 2} el
 resultado es \texttt{1} porque \texttt{5 / 2} da como resultado \texttt{2} y el resto es \texttt{1}.
 
@@ -999,7 +999,6 @@ contenedores más comunes son:
 
 \begin{itemize}
   \item \texttt{std::vector}: Un arreglo dinámico que puede cambiar de tamaño automáticamente.
-  \item \texttt{std::list}: Una lista enlazada que permite inserciones y eliminaciones eficientes.
   \item \texttt{std::deque}: Una cola de doble extremo que permite inserciones y eliminaciones eficientes en ambos extremos.
   \item \texttt{std::set}: Un conjunto que almacena elementos únicos en orden.
   \item \texttt{std::unordered\_set}: Un conjunto que almacena elementos únicos sin orden.
@@ -1010,8 +1009,114 @@ contenedores más comunes son:
 Cuando uno utiliza estos contenedores, no es necesario preocuparse por el manejo de memoria, ya que se encargan
 automáticamente de asignar y liberar memoria según sea necesario. Además, estos contenedores proporcionan una gran
 cantidad de funciones para manipular los datos almacenados, como insertar, eliminar, encontrar el primer elemento, el
-último elemento y todos funcionan con algo que en C++ se llama iteradores, que son objetos que permiten recorrer los
-elementos de un contenedor de una forma sencilla y eficiente cada estructura de datos.
+último elemento.
+
+\subsubsection{Iteradores}
+
+Intrínsecamente relacionados con los contenedores de la biblioteca estándar de C++ (STL) están los iteradores, que son
+objetos que permiten recorrer los elementos de un contenedor de manera secuencial. Los iteradores proporcionan una
+interfaz uniforme para acceder a los elementos de diferentes tipos de contenedores, lo que facilita la manipulación de
+datos sin tener que preocuparse por la estructura interna del contenedor. Por ejemplo, si queremos recorrer un vector de
+enteros utilizando un iterador, podríamos hacerlo de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de iteradores en C++}]
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+  vector<int> numeros = {1, 2, 3, 4, 5}; // Crea un vector de enteros
+
+  // Crea un iterador para el vector
+  vector<int>::iterator it;
+
+  // Recorre el vector utilizando el iterador
+  for (it = numeros.begin(); it != numeros.end(); ++it) {
+    cout << *it << " "; // Imprime el valor al que apunta el iterador
+  }
+  cout << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+Expliquemos un poco lo que está pasando acá. Primero, creamos un vector de enteros llamado \texttt{numeros} e
+inicializamos con algunos valores.
+
+Vemos que \texttt{numeros.begin()} y \texttt{numeros.end()} son funciones que devuelven iteradores que apuntan al primer
+elemento del vector y al elemento siguiente al último elemento del vector. Con lo cual \texttt{numeros.begin()} es un
+iterador que apunta al primer elemento del vector (y de cualquier otro contenedor), mientras que \texttt{numeros.end()}
+es un iterador que apunta a una posición de memoria que está justo después del último elemento del vector, lo que
+significa que no es un iterador válido para acceder a los elementos del vector, pero es útil para determinar cuándo
+hemos llegado al final del vector durante la iteración. A esto en matemáticas se lo conoce como que un conjunto está
+cerrado por abajo y abierto por arriba, porque \texttt{numeros.begin()} pertenece al conjunto pero
+\texttt{numeros.end()} no pertenece al conjunto.
+
+Lo interesante de este tipo de iteradores es que se pueden utilizar con cualquier tipo de contenedor de la biblioteca
+estándar de C++, por ejemplo imaginemos que hacemos lo mismo pero con un \texttt{std::set}:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de iteradores con un set en C++}]
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+int main() {
+  set<int> numeros; // Crea un set de enteros
+  numeros.insert(5);
+  numeros.insert(3);
+  numeros.insert(1);
+  numeros.insert(4);
+  numeros.insert(2);
+
+  // Crea un iterador para el set
+  set<int>::iterator it;
+
+  // Recorre el set utilizando el iterador
+  for (it = numeros.begin(); it != numeros.end(); ++it) {
+    cout << *it << " "; // Imprime el valor al que apunta el iterador
+  }
+  cout << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+De todas formas C++ también permite el uso de \texttt{auto} para declarar iteradores de forma automática, lo que hace
+que el código sea más limpio y fácil de leer, por ejemplo:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de iteradores con auto en C++}]
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+int main() {
+  set<int> numeros = {5, 3, 1, 4, 2}; // Crea un set de enteros
+
+  // Recorre el set utilizando un iterador declarado con auto
+  for (auto e : numeros) {
+    cout << e << " "; // Imprime el valor del elemento
+  }
+  cout << endl;
+  return 0;
+}
+\end{lstlisting}
+
+Pero para esto hay que utilizar las extesiones de C++11, que es una versión de C++ que introdujo muchas mejoras y nuevas
+características al lenguaje, incluyendo el uso de \texttt{auto} para la declaración automática de variables, lo que hace
+que el código sea más limpio y fácil de leer, ya que no es necesario especificar el tipo de la variable cuando se
+declara, sino que el compilador lo infiere automáticamente a partir del valor que se le asigna. Otro cambio es que se
+puede inicializar los \texttt{std::set} utilizando una lista \texttt{\{5, 3, 1, 4, 2\}} en lugar de tener que insertar
+cada elemento por separado utilizando la función \texttt{insert}.
+
+Para poder compilar hay que explicitar el uso de C++11 utilizando la opción \texttt{-std=c++11} al compilar, por
+ejemplo:
+
+\begin{verbatim}
+g++ -std=c++11 ejemplo.cpp -o ejemplo
+\end{verbatim}
 
 \input{../shared.tex/common_footers.tex}
 
