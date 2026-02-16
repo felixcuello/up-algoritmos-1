@@ -1,0 +1,1449 @@
+\input{../shared.tex/common_headers.tex}
+
+\begin{document}
+
+\begin{center}
+  \LARGE\textbf{\coursename} \\
+  \Large{Apéndice 01 - Introducción al Lenguaje C++} \\
+  \normalsize{\currentsemester, \currentyear} \\
+  \vspace{1em}
+  \hrule
+\end{center}
+
+\vspace{1em}
+
+\setcounter{section}{0}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\begin{tcolorbox}[colback=mint,colframe=mint!75!black,arc=0pt,outer arc=0pt]
+  \textbf{¡Bienvenidos a Algoritmos 1!} \\
+
+  Esta es una guía adicional para que tengas como referencia del lenguaje C++ que es lo que vamos a estar utilizando
+  durante la cursada. Si bien no es necesario que sepas C++, es importante que tengas una base sólida para que puedas
+  entender los errores y poder resolver los ejercicios que se van a plantear durante la materia.
+
+  El objetivo de esta guía es que puedas:
+
+  \begin{itemize}
+    \item \textbf{Aprender a compilar y ejecutar código en C / C++}
+    \item \textbf{Aprender y repasar los conceptos básicos de C / C++} que son necesarios para la materia.
+    \item \textbf{Tener una referencia rápida de la sintaxis de C / C++} para poder consultar cuando tengas dudas sobre
+      cómo escribir algo en C / C++.
+  \end{itemize}
+
+  Si aún así te quedan dudas sobre cómo escribir alguna cosa puntual \textbf{¡Utilizá las herramientas para consultar!}
+\end{tcolorbox}
+
+\newpage
+
+\subsection{Introducción}
+\label{sec:set_up}
+
+Para poder trabajar en la materia vas a tener que tener instalado un compilador C++ para poder probar tus propios
+ejercicios y problemas. Si sólo vas a correr los ejemplos y problemas vistos en clase podés utilizar simplemente la
+plataforma de programación competitiva de la universidad en:
+\href{https://cloud-stack.palermo.edu:35500/users/sign_in}{UP Competitive Programming Platform}.
+
+\subsection{¿Cómo instalo un compilador de C++?}
+
+La forma más sencilla es utilizando \texttt{docker}. \href{https://www.docker.com/products/docker-desktop/}{Docker
+Desktop} es una aplicación que permite crear y administrar contenedores de Docker en tu computadora. Un contenedor de
+Docker es una instancia de una imagen de docker (muy similar a una máquina virtual) que se ejecuta de manera aislada del
+sistema operativo subyacente, lo que permite ejecutar aplicaciones y servicios de manera consistente en diferentes
+entornos.
+
+La ventaja de utilizar docker es que no estás instalando nada más que docker (que es muy utilizada en entornos
+profesionales, con lo cual seguramente lo sigas usando), y luego todo lo que se instala dentro del contenedor es
+totalmente efímero y si un día querés eliminarlo, simplemente eliminás el contenedor y listo, sin tener que preocuparte
+por desinstalar nada ni por conflictos de versiones de software.
+
+\subsubsection{Crear el contenedor}
+\label{sec:crear_contenedor}
+
+La primera cosa que tenés que hacer es crear el contenedor de docker con el compilador que vamos a utilizar en la
+materia. Para eso tenés que ir al directorio \texttt{docker/} que se encuentra en este repositorio y ejecutar:
+
+\begin{verbatim}
+docker build -t algoritmos_1 .
+\end{verbatim}
+
+Esto va a crear una imagen de docker con el nombre \texttt{algoritmos\_1} que tiene instalado el compilador de C++ y
+todas las herramientas necesarias para poder compilar y ejecutar código en C++.
+
+\textbf{¡Con esto ya podés correr los ejemplos y ejercicios de la materia!}
+
+\newpage
+
+\subsection{Hello World en C++}
+
+En general uno asocia C++ con la programación orientada a objetos, sin embargo en esta materia, vamos a utilizar el
+lenguaje C++ como un C potenciado. Es decir, vamos a utilizar la sintaxis de C++ pero sin utilizar las
+características de la programación orientada a objetos, pero vamos a tomar ventaja de las bibliotecas de alto nivel que
+ofrece, como las estructuras de datos ya incluídas y sus algoritmos para poder tener un código que se ejecute en alto
+nivel que, además, pueda compilar C que es algo que verán en el resto de la carrera.
+
+El código de ejemplo para imprimir un Hello World es un poco diferente en C++ que en C, porque la interfaz de entrada
+y salida de datos es diferente. En C++ se utiliza la biblioteca \texttt{iostream} para la entrada y salida:
+
+\begin{lstlisting}[language=C++, caption={Código de ejemplo Hello World en C++}]
+#include <iostream>  // esto es lo mismo que en C, pero sin la extensión .h
+
+int main() {
+  // std::cout es el objeto de salida estándar en C++, y std::endl es un salto de línea
+  std::cout << "Hola mundo.... desde C++!!!" << std::endl;
+  return 0;
+}
+\end{lstlisting}
+
+En general el estudio de Algoritmos se puede hacer en cualquier lenguaje, pero C es un lenguaje de muy bajo nivel que no
+tiene en su biblioteca estándar algunas funcionalidades que necesitamos para poder estudiar cierto tipo de algoritmos.
+
+\newpage
+
+\subsection{Corriendo programas en C++}
+
+Para ejecutar programas en C++ pueden utilizar una instalación local, pueden usar `docker` como ya vimos en la sección
+anterior \ref{sec:crear_contenedor}, pueden utilizar la
+\href{https://cloud-stack.palermo.edu:35500/users/sign_in}{plataforma de programación competitiva de la universidad}, o
+pueden utilizar alguna plataforma como \href{https://onecompiler.com/cpp}{OneCompiler} o
+\href{https://www.onlinegdb.com/online_c++_compiler}{OnlineGDB}.
+
+En cualquier caso si van a utilizar un contenedor de docker o una instalación local de \texttt{g++} para compilar el
+código, el comando para compilar un programa en C++ es el siguiente:
+
+\begin{verbatim}
+g++ -Wall -o programa programa.cc
+\end{verbatim}
+
+Donde \texttt{-Wall} es un flag que le indica al compilador que muestre todas las advertencias, \texttt{-o programa} es
+el flag que le indica al compilador que el archivo ejecutable se llame \texttt{programa}, y \texttt{programa.cc} es el
+archivo de código fuente que queremos compilar.
+
+\newpage
+
+\subsection{Repaso de C y C++}
+
+\begin{tcolorbox}[colback=yellow,colframe=yellow!75!black,arc=0pt,outer arc=0pt]
+\textbf{ATENCIÓN}
+
+En esta sección vamos a repasar los conceptos básicos de C++, algunas cosas no van a estar explicadas porque el
+  objetivo de esta materia no es ense\~nar C++, con lo cual si alguna de las cosas que están escritas acá no se
+  entiende, podrás preguntar en clase o investigar un poco.
+
+  Los conceptos IMPORTANTES van a estar explicados, pero la sintaxis del lenguaje no va a estar explicada en detalle,
+  porque el libro de C++ en sí mismo es un libro de más de 600 páginas y no es obligatorio para la materia,
+  simplemente aprendé la sintaxis.
+
+  Es cierto que escribir \texttt{print "hola"} puede resultar más ameno que escribir \texttt{std::cout << "hola" <<
+  std::endl}, pero en definitiva es una cuestión exclusivamente de sintaxis.
+
+  Igual iremos explicando lo que significa cada parte del código, pero lo importante será enfocarnos en algoritmos.
+\end{tcolorbox}
+
+\subsubsection{Compilación y ejecución}
+
+Este apartado está repetido en la práctica para que puedas ver cómo se compila y ejecuta un programa en C y C++.
+Supongamos que tenés el siguiente código en un archivo llamado \texttt{cuadrado.cc}:
+
+\textbf{Versión en C}
+
+\begin{lstlisting}[language=C++, caption={Cuadrado de un número}]
+#include <stdio.h>
+
+int main() {
+  int n;
+
+  scanf("%d", &n); // Lee un número desde la entrada estándar
+  printf("%d\n", n*n); // Imprime el cuadrado del número
+
+  return 0;
+}
+\end{lstlisting}
+
+\textbf{Versión en C++}
+
+\begin{lstlisting}[language=C++, caption={Cuadrado de un número}]
+#include <iostream>
+
+using namespace std; // Esto no es obligatorio en versiones nuevas de C++
+
+int main() {
+  int n;
+
+  cin >> n; // Lee un número desde la entrada estándar (similar a scanf en C)
+  cout << n*n << endl; // Imprime el cuadrado del número (similar a printf en C)
+
+  return 0;
+}
+\end{lstlisting}
+
+\begin{verbatim}
+g++ -Wall -o cuadrado cuadrado.cc
+./cuadrado
+5
+25
+\end{verbatim}
+
+La idea es que cada vez que ejecutemos este programa, se quedará esperando a que ingresemos un número por pantalla y
+luego imprimirá el cuadrado de ese número.
+
+
+\subsubsection{Sintaxis básica}
+
+El lenguaje C++ es un lenguaje de programación de propósito general, que se caracteriza por su simplicidad y
+eficiencia. Un programa en C++ se compone de una o más funciones, siendo la función \texttt{main} la función principal
+que se ejecuta al iniciar el programa. La sintaxis básica es la siguiente:
+
+\begin{lstlisting}[language=C++, caption={Sintáxis básica de un programa en C++}]
+// #include sirve para incluir bibliotecas
+#include <iostream>  // Biblioteca para entrada y salida de datos
+#include <algorithm> // Biblioteca para algoritmos predefinidos
+#include <vector>    // Biblioteca para arrays dinámicos (vectores)
+// etc.
+
+// main es la funcion principal del programa que DEBE estar presente
+// argc y argv son los argumentos de la linea de comandos
+int main(int argc, char *argv[]) {
+  cout << "Hola mundo.... desde C++!!!" << endl; // Imprime un mensaje en la consola
+  return 0;
+}
+\end{lstlisting}
+
+
+\subsubsection{Variables y tipos de datos}
+
+En C++, las variables se utilizan para almacenar datos y deben ser declaradas antes de ser utilizadas. Los tipos de
+datos más comunes en C son:
+
+\begin{itemize}
+  \item \texttt{int}: Enteros (números enteros).
+  \item \texttt{float}: Números de punto flotante (decimales).
+  \item \texttt{double}: Números de punto flotante de doble precisión.
+  \item \texttt{char}: Caracteres individuales.
+  \item \texttt{void}: Tipo de dato vacío, utilizado para funciones que no retornan un valor.
+\end{itemize}
+
+Además se pueden utilizar modificadores de tipo como \texttt{unsigned} para enteros sin signo, o \texttt{long} para
+enteros de mayor tamaño. Por ejemplo, \texttt{unsigned int} es un entero sin signo que puede almacenar valores desde 0
+hasta $2^{32-1}$, mientras que \texttt{long int} es un entero de mayor tamaño que puede almacenar valores desde
+$-2^{63}$ hasta $2^{63-1}$.
+
+\subsubsection{Operadores}
+
+C cuenta con una variedad de operadores que se utilizan para realizar operaciones aritméticas, lógicas y de comparación.
+Los operadores más comunes son:
+
+\begin{itemize}
+  \item Aritméticos: \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, \texttt{\%}.
+  \item Logicos: \texttt{\&\&} (AND), \texttt{\textbar\textbar} (OR), \texttt{!} (NOT).
+  \item De comparacion: \texttt{==}, \texttt{!=}, \texttt{<}, \texttt{>}, \texttt{<=}, \texttt{>=}.
+  \item Asignación: \texttt{=}, \texttt{+=}, \texttt{-=}, \texttt{*=}, \texttt{/=}, \texttt{\%=}.
+  \item Bit a bit: \texttt{\&}, \texttt{\textbar}, \texttt{\textasciicircum}, \texttt{\textasciitilde}, \texttt{<<}, \texttt{>>}.
+\end{itemize}
+
+Los operadores aritméticos no requieren una explicación adicional, con excepción del operador \texttt{\%} que es el
+operador de módulo que nos devuelve el resto de una división entera. Por ejemplo, si tenemos \texttt{5 \% 2} el
+resultado es \texttt{1} porque \texttt{5 / 2} da como resultado \texttt{2} y el resto es \texttt{1}.
+
+Los operadores lógicos se utilizan para combinar expresiones que devuelve un valor de verdad (\texttt{true} o
+\texttt{false}. \textbf{En C y C++}: \texttt{NULL}, \texttt{0} o \texttt{false}, todo lo demás se considera
+\texttt{true}.
+
+Los operadores de comparación se utilizan para comparar dos valores y devolver un valor de verdad. Con lo cual si
+tenemos una expresión como \texttt{5 > 3} el resultado es \texttt{true}, mientras que si tenemos \texttt{5 < 3} el
+resultado es \texttt{false} y estas expresiones se pueden combinar con los operadores lógicos para formar expresiones
+más complejas, por ejemplo \texttt{(a > 3) \&\& (b < 5)}.
+
+Los operadores de asignación se utilizan para asignar un valor a una variable, por ejemplo \texttt{x = 5} asigna el
+valor \texttt{5} a la variable \texttt{x}. Además hay operadores de asignación compuestos (\texttt{+=}, \texttt{-=},
+\texttt{*=}, \texttt{/=}, \texttt{\%=}) son una forma abreviada de escribir una operación de asignación combinada con
+una operación aritmética. Por ejemplo, \texttt{x += 5} es equivalente a \texttt{x = x + 5}.
+
+En una operación de asignación existe el \texttt{lvalue} y el \texttt{rvalue}, donde el \texttt{lvalue} es la variable
+donde se va a almacenar el resultado de la operación y el \texttt{rvalue} es el valor que se va a asignar. Esta es la
+razón por la cual no se puede hacer una asignación como \texttt{5 = x} ya que \texttt{5} no es un \texttt{lvalue}, lo
+que significa que no se puede asignar un valor a él.
+
+Además existen operadores bit a bit se utilizan para realizar operaciones a nivel de bits, estos son importantes para
+poder manipular datos a nivel de bits, lo cual es útil para la optimización de memoria.
+
+\begin{itemize}
+  \item \texttt{\&}: \texttt{5 \& 3} da como resultado \texttt{1} porque en binario \texttt{5} es \texttt{101} y
+    \texttt{3} es \texttt{011}, y al hacer la operación AND bit a bit, el resultado es \texttt{001}.
+  \item \texttt{\textbar}: \texttt{5 \textbar 3} da como resultado \texttt{7} porque en binario \texttt{5} es
+    \texttt{101} y \texttt{3} es \texttt{011}, y al hacer la operación OR bit a bit, el resultado es \texttt{111}.
+  \item \texttt{\textasciicircum}: \texttt{5 \textasciicircum 3} da como resultado \texttt{6} porque en binario
+    \texttt{5} es \texttt{101} y \texttt{3} es \texttt{011}, y al hacer la operación XOR bit a bit, el resultado es
+    \texttt{110}.
+  \item \texttt{\textasciitilde}: \texttt{\textasciitilde} es el operador de complemento a uno, que invierte todos los
+    bits de un número. Por ejemplo, \texttt{\textasciitilde 5} da como resultado \texttt{-6}.
+  \item \texttt{<<}: \texttt{5 << 1} desplaza los bits de \texttt{5} una posición a la izquierda, lo que equivale a
+    multiplicar por 2, dando como resultado \texttt{10}.
+  \item \texttt{>>}: \texttt{5 >> 1} desplaza los bits de \texttt{5} una posición a la derecha, lo que equivale a
+    la división entera por 2, dando como resultado \texttt{2}.
+\end{itemize}
+
+
+\subsubsection{Estructuras de control}
+
+C cuenta con estructuras de control que permiten tomar decisiones y repetir bloques de código. Las estructuras más
+comunes son:
+
+\begin{itemize}
+  \item Condicionales: \texttt{if}, \texttt{else if}, \texttt{else}
+  \item Bucles: \texttt{for}, \texttt{while}
+  \item Saltos: \texttt{break}, \texttt{continue}, \texttt{return}.
+\end{itemize}
+
+Ejemplos:
+
+\begin{lstlisting}[language=C++, caption={Estructuras de Control}]
+#include <stdio.h>
+
+int main() {
+  // Bucle for
+  for (int x = -10; x < 11; x++) {
+    if((x > 5) && (x % 3 == 0)) {
+      printf("x=%d es mayor a 5 y multiplo de 3\n", x);
+    }
+
+    // Condicional if
+    if (x > 0) {
+      printf("x=%d es positivo\n", x);
+    } else if (x < 0) {
+      printf("x=%d es negativo\n", x);
+    } else {
+      printf("x=%d es cero\n", x);
+    }
+  }
+
+  // Bucle while
+  int j = 0;
+  while (j < 5) {
+    printf("Iteracion %d\n", j);
+    j++;
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+El \texttt{if} es una estructura de control que permite ejecutar o no un bloque de código (como veremos en la sección
+Scopes \ref{sec:scopes}) dependiendo de si se cumple o no una condición, pueden haber múltiples condiciones utilizando
+\texttt{else if}, y un bloque de código que se ejecuta si ninguna de lass condiciones se cumple utilizando
+\texttt{else}.
+
+El \texttt{while} es una estructura de control que permite repetir un bloque de código mientras se cumpla una condición,
+es decir, se chequea la condición al inicio de la ejecución del bloque, y mientras esa condición sea verdadera, el
+bloque de código se ejecutará, y luego se volverá a chequear la condición.
+
+El \texttt{for} es una estructura de control que permite repetir un bloque de código un número determinado de veces
+donde se chequea una condición al inicio de la ejecución del bloque. Minetras que esa condición sea verdadera, el bloque
+de código se ejecutará, y luego se ejecutará una expresión de actualización que generalmente se utiliza para modificar
+la variable de control del bucle. Podemos decir que el \texttt{for} es una versión más compacta del \texttt{while} ya
+que permite inicializar variables, chequear la condición y actualizar la variable en una sola línea de código.
+
+A medida que programen verán cuál de las estructuras de control es más conveniente utilizar dependiendo del caso.
+
+\subsubsection{Punteros}
+
+Los punteros son una característica poderosa de C y C++ que permite manipular direcciones de memoria directamente. Un
+puntero es una variable que almacena la dirección de memoria de otra variable. Se declaran utilizando el operador
+\texttt{*} y se accede al valor al que apuntan utilizando el operador \texttt{\&}. Por ejemplo:
+
+\begin{lstlisting}[language=C, caption={Ejemplo de punteros en C}]
+#include <stdio.h>
+
+int main() {
+  int x = 10; // Declaracion de una variable entera
+  int *p = &x; // Declaracion de un puntero que apunta a la direccion de x
+
+  printf("Valor de x: %d\n", x); // Imprime el valor de x
+  printf("Direccion de x: %p\n", (void*)&x); // Imprime la direccion de x
+  printf("Valor al que apunta p: %d\n", *p); // Imprime el valor al que apunta p (valor de x)
+  printf("Direccion almacenada en p: %p\n", (void*)p); // Imprime la direccion almacenada en p
+
+  return 0;
+}
+\end{lstlisting}
+
+
+\subsubsection{Funciones}
+
+Las funciones en C++ son bloques de código que realizan una tarea específica y pueden ser reutilizadas en diferentes
+partes del programa. Se declaran utilizando la siguiente sintaxis:
+
+\begin{lstlisting}[language=C, caption={Declaración de una función en C}]
+int sumar_enteros(int a, int b) {
+  return a + b; // Retorna la suma de a y b
+}
+\end{lstlisting}
+
+Para llamar a una función, simplemente se utiliza su nombre seguido de los argumentos entre paréntesis:
+
+\begin{lstlisting}[language=C, caption={Llamada a una función en C}]
+#include <stdio.h>
+
+int sumar_enteros(int a, int b) {
+  return a + b;
+}
+
+int main() {
+  int resultado = sumar_enteros(5, 10); // Llama a la funcion sumar_enteros
+  printf("Resultado: %d\n", resultado); // Imprime el resultado
+  return 0;
+}
+\end{lstlisting}
+
+Hay que tener algunas consideraciones cuando se llaman a funciones, porque en C y C++ los argumentos (o parámetros) de
+las funciones se pasan \textbf{por valor}, lo que significa que se crea una copia de los argumentos al llamar a la
+función. Esto tiene una ventaja y una desventaja. La ventaja es que no se pueden modificar los argumentos originales
+desde la función, lo que muchas veces es útil cuando no queremos que la función modifique los datos que le pasamos. La
+desventaja es que si los datos que vamos a pasar son muy grandes, la llamada a esa función se vuelve extremádamente
+ineficiente. Esto es un problema súper común y hay que tenerlo en cuenta.
+
+En C, la solución a este problema es utilizar punteros para pasar los argumentos que tienen un tamaño grande o que se
+desea modificar. Por ejemplo supongamos que queremos pasar un valor que queremos modificar en una función:
+
+\begin{lstlisting}[language=C, caption={Ejemplo de paso por puntero en C}]
+#include <stdio.h>
+
+void incrementar(int *x) { // El argumento x se pasa como puntero
+  (*x)++; // Incrementa el valor al que apunta x
+}
+
+int main() {
+  int numero = 5;
+  incrementar(&numero); // Llama a la funcion incrementar pasando la direccion de numero
+  printf("Numero incrementado: %d\n", numero); // Imprime el numero incrementado
+  return 0;
+}
+\end{lstlisting}
+
+Si se fijan, la forma de llamar a la función incrementar es igual a la sintaxis utilizada en la función \texttt{printf},
+porque en ambos casos se está pasando la dirección de memoria de la variable \texttt{numero} para que la función pueda
+modificar su valor original.
+
+En C++ se puede hacer lo mismo, pero la sintaxis es mucho más sencilla gracias que tiene una sintaxis especial para
+pasar argumentos \textbf{por referencia} que es similar a las direcciones de memoria. La diferencia es que no es
+necesario dereferenciarla para poder usarla dentro de la función como sí ocurre dentro de los punteros.
+
+¿Cómo sería la sintaxis para pasar un argumento por referencia en C++? Simplemente se utiliza el operador \texttt{\&}
+en la declaración de la función para indicar que el argumento se pasa por referencia, y luego se puede modificar el
+valor original desde la función. Por ejemplo:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de paso por referencia en C++}]
+#include <iostream>
+
+using namespace std;
+
+void incrementar(int &x) { // El argumento x se pasa por referencia
+  x++; // Incrementa el valor de x
+}
+
+int main() {
+  int numero = 5;
+  incrementar(numero); // Llama a la funcion incrementar
+  cout << "Numero incrementado: " << numero << endl; // Imprime el numero incrementado
+  return 0;
+}
+\end{lstlisting}
+
+En definitiva es muy parecido a pasar un puntero en C, con la diferencia de que en C++ no es necesario utilizar el
+operador \texttt{*} para declarar un puntero, ni el operador \texttt{\&} para acceder al valor al que apunta el puntero,
+sino que se utiliza el operador \texttt{\&} para indicar que el argumento se pasa por referencia, y luego se puede
+acceder al valor original directamente desde la función.
+
+\subsubsection{Manejo de memoria}
+
+En C, el manejo de memoria básico de C se realiza utilizando las funciones \texttt{malloc} y \texttt{free} de la
+biblioteca \texttt{stdlib.h}. La función \texttt{malloc} se utiliza para asignar memoria dinámica y la función
+\texttt{free} se utiliza para liberar la memoria asignada. Por ejemplo:
+
+\begin{lstlisting}[language=C, caption={Manejo de memoria en C}]
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int *arr = (int*)malloc(5 * sizeof(int)); // Asigna memoria para un arreglo de 5 enteros
+  if (arr == NULL) {
+    printf("Error al asignar memoria\n");
+    return 1; // Sale del programa si no se pudo asignar memoria
+  }
+
+  for (int i = 0; i < 5; i++) {
+    arr[i] = i * 10; // Inicializa el arreglo
+  }
+
+  for (int i = 0; i < 5; i++) {
+    printf("%d ", arr[i]); // Imprime el arreglo
+  }
+  printf("\n");
+
+  free(arr); // Libera la memoria asignada
+  return 0;
+}
+\end{lstlisting}
+
+Este tipo de cosas pueden resultar un poco complicadas al principio porque ese necesario tener cuidado de no irnos de
+los límites de memoria asignada para evitar incurrir en errores de memoria (\textit{segmentation fault}), y también es
+necesario recordar liberar la memoria asignada para evitar fugas de memoria (\textit{memory leaks}). Los \textit{memory
+leaks} ocurren cuando se asigna memoria dinámica pero no se libera, lo que puede llevar a que el programa consuma cada
+vez más memoria y eventualmente se quede sin memoria disponible, lo que puede causar que el programa se bloquee o se
+comporte de manera inesperada, a esto se lo conoce muchas veces como OOM (\textit{Out of Memory}).
+
+Sin embargo en C++ tenemos la ventaja de que el manejo de memoria es mucho más sencillo gracias a la utilización de
+contenedores de la biblioteca estándar como \texttt{std::vector} que se encargan automáticamente de asignar y liberar
+memoria, lo que nos permite centrarnos en la lógica de nuestro programa sin tener que preocuparnos por el manejo de
+memoria como veremos en la sección específica de C++ \ref{sec:cpp}.
+
+Sin embargo para algunos ejercicios utilizaremos memoria dinámica en C, por lo cual es importante que entiendan cómo
+funciona el manejo de memoria en C, y cómo se puede utilizar para crear estructuras de datos dinámicas como listas
+enlazadas, árboles, grafos, etc.
+
+\subsubsection{Matrices}
+
+Al pedir memoria con \texttt{malloc} C nos retorna un puntero a la memoria asignada, y esta memoria asignada es
+contigua, con lo cual podemos utilizar punteros o subíndices para acceder a los elementos de la memoria asignada. Por
+ejemplo si tenemos un vector de tamaño 100 y queremos acceder al elemento 47 podemos hacerlo de la siguientes maneras:
+
+\begin{lstlisting}[language=C, caption={Acceso a elementos de un vector en C}]
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int *vector = (int*)malloc(100 * sizeof(int)); // Asigna memoria para un vector de 100 enteros
+  if (vector == NULL) {
+    printf("Error al asignar memoria\n");
+    return 1; // Sale del programa si no se pudo asignar memoria
+  }
+
+  // Acceso al elemento 47 del vector usando subindice
+  vector[47] = 42;
+  printf("Elemento en la posicion 47: %d\n", vector[47]);
+
+  *(vector + 47) += 1; // Acceso al elemento 47 del vector usando puntero
+  printf("Elemento en la posicion 47: %d\n", *(vector + 47));
+
+  free(vector); // Libera la memoria asignada
+  return 0;
+}
+\end{lstlisting}
+
+Supongamos que ahora tenés que trabajar con una matriz de 100x200 enteros (20.000 elementos), en este caso lo que se
+puede hacer es calcular la dirección de memoria del elemento en la fila \texttt{fila} y la columna \texttt{col} de la
+matriz haciendo lo siguiente:
+
+\begin{lstlisting}[language=C, caption={Acceso a elementos de una matriz en C}]
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int filas = 100;
+  int columnas = 200;
+  int *matriz = (int*)malloc(filas * columnas * sizeof(int)); // Asigna memoria para una matriz de 100x100 enteros
+  if (matriz == NULL) {
+    printf("Error al asignar memoria\n");
+    return 1; // Sale del programa si no se pudo asignar memoria
+  }
+
+  int fila = 47;
+  int col = 42;
+
+  // Acceso al elemento en la fila y columna especificadas
+  int posicion_memoria = fila * columnas + col; // Calcula la posicion en memoria
+  matriz[posicion_memoria] = 1234; // Acceso usando subindice
+  printf("Elemento en la posicion [%d][%d]: %d\n", fila, col, matriz[posicion_memoria]);
+
+  *(matriz + posicion_memoria) += 1; // Acceso usando puntero
+  printf("Elemento en la posicion [%d][%d]: %d\n", fila, col, *(matriz + posicion_memoria));
+
+  free(matriz); // Libera la memoria asignada
+  return 0;
+}
+\end{lstlisting}
+
+
+\subsubsection{Entrada y salida de datos en C}
+
+C proporciona funciones para la entrada y salida de datos a través de la biblioteca \texttt{stdio.h}. Las funciones más
+comunes son:
+
+\begin{itemize}
+  \item \texttt{printf}: Para imprimir datos en la consola.
+  \item \texttt{scanf}: Para leer datos desde la entrada estándar (teclado).
+  \item \texttt{getchar}: Para leer un carácter desde la entrada estándar.
+  \item \texttt{putchar}: Para imprimir un carácter en la salida estándar.
+  \item \texttt{fgets}: Para leer una línea completa desde la entrada estándar.
+  \item \texttt{fputs}: Para imprimir una línea completa en la salida estándar.
+\end{itemize}
+
+Estas funciones son ideales para interactuar con el usuario, pero también funcionan para obtener datos de STDIN y
+enviarlo a STDOUT, que es lo que se puede utilizar luego para redirigir la entrada y salida de datos desde y hacia
+archivos.
+
+Supongamos que tenemos un matriz de \texttt{filas x columnas} enteros y queremos leer los datos desde la entrada
+estándar, podemos crear un archivo así:
+
+\begin{verbatim}
+3 4
+1 2 3 4
+5 6 7 8
+9 10 11 12
+\end{verbatim}
+
+Y luego leerlo desde un programa en C de la siguiente manera:
+
+\begin{lstlisting}[language=C, caption={Lectura de datos desde la entrada estándar en C}]
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int filas, columnas;
+  scanf("%d %d", &filas, &columnas); // Lee las dimensiones de la matriz
+
+  int **matriz = (int**)malloc(filas * sizeof(int*)); // Asigna memoria para las filas
+  for (int i = 0; i < filas; i++) {
+    matriz[i] = (int*)malloc(columnas * sizeof(int)); // Asigna memoria para las columnas
+  }
+
+  // Lee los datos de la matriz
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      scanf("%d", &matriz[i][j]);
+    }
+  }
+
+  // Imprime la matriz
+  printf("Matriz:\n");
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      printf("%d ", matriz[i][j]);
+    }
+    printf("\n");
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+\subsubsection{Entrada y salida de datos en C++}
+
+En C++, la entrada y salida de datos se realiza a través de la biblioteca \texttt{iostream}, ya que el C++ utiliza
+el concepto de flujos para la entrada y salida de datos. Los objetos más comunes para la entrada y salida de datos son:
+
+\begin{itemize}
+  \item \texttt{std::cin}: Para leer datos desde la entrada estándar (teclado).
+  \item \texttt{std::cout}: Para imprimir datos en la consola.
+\end{itemize}
+
+La sintaxis para la entrada y salida de datos en C++ es diferente a la de C, ya que se utilizan los operadores de inserción
+(\texttt{<<}) y extracción (\texttt{>>}) para enviar y recibir datos a través de los flujos. Podemos pensar esos
+operadores como flechas que indican la dirección del flujo de datos, por ejemplo \texttt{std::cout << "Hola"} indica que
+la cadena "Hola" se envía al flujo de salida estándar, mientras que \texttt{std::cin >> x} indica que el valor ingresado
+por el usuario se almacena en la variable \texttt{x}.
+
+Como se puede ver no es necesario indicar la dirección de memoria de la variable al leer datos desde la entrada
+estándar, como se hace en C con \texttt{scanf}, ya que en C++ el operador de extracción (\texttt{>>}) se encarga de
+almacenar el valor ingresado directamente en la variable, lo que hace que la sintaxis sea más sencilla y fácil de
+entender.
+
+Por ejemplo si quisiéramos leer una matriz de \texttt{filas x columnas} enteros desde la entrada estándar en C++,
+podríamos hacerlo de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Lectura de datos desde la entrada estándar en C++}]
+#include <iostream>
+
+using namespace std;
+
+int main() {
+  int filas, columnas;
+  cin >> filas >> columnas; // lee las dimensiones de la matriz
+
+  int **matriz = new int*[filas]; // asigna memoria para las filas
+  for (int i = 0; i < filas; i++) {
+    matriz[i] = new int[columnas]; // asigna memoria para las columnas
+  }
+
+  // lee los datos de la matriz
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      cin >> matriz[i][j];
+    }
+  }
+
+  // imprime la matriz
+  cout << "matriz:" << endl;
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      cout << matriz[i][j] << " ";
+    }
+    cout << endl;
+  }
+}
+\end{lstlisting}
+
+\newpage % ------------------------------------------------------------------------------------------------------------
+
+\subsubsection{Estructuras}
+
+Las estructuras en C son una forma de agrupar diferentes tipos de datos bajo un mismo nombre. Se declaran utilizando la
+palabra clave \texttt{struct} y se pueden utilizar para crear tipos de datos personalizados. Por ejemplo:
+
+\begin{lstlisting}[language=C, caption={Declaración de una estructura en C}]
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Persona {
+  char nombre[50]; // Nombre de la persona
+  int edad; // Edad de la persona
+};
+
+int main() {
+  struct Persona* persona = (struct Persona*)malloc(sizeof(struct Persona)); // Asigna memoria para una estructura
+  if (persona == NULL) {
+    printf("Error al asignar memoria\n");
+    return 1; // Sale del programa si no se pudo asignar memoria
+  }
+
+  // Inicializa la estructura
+  snprintf(persona->nombre, sizeof(persona->nombre), "Juan Perez"); // Asigna el nombre
+  persona->edad = 30; // Asigna la edad
+  printf("Nombre: %s, Edad: %d\n", persona->nombre, persona->edad); // Imprime los datos de la persona
+  free(persona); // Libera la memoria asignada
+  return 0;
+}
+\end{lstlisting}
+
+
+\newpage % ------------------------------------------------------------------------------------------------------------
+
+\subsubsection{Cadenas en C}
+
+En C, las cadenas de caracteres se representan como arreglos de caracteres terminados en un carácter nulo
+(\texttt{NULL}). Es \textbf{muy} importante recordar que para ser una cadena válida, el último carácter debe ser el
+carácter nulo, ya que muchas de las funciones de manipulación de cadenas en C dependen de este carácter para determinar
+el final de la cadena.
+
+El caracter nulo en C es el caracter con número ASCII 0, y se representa como \texttt{0} o \texttt{NULL}.
+
+Si uno utiliza una cadena en C, el compilador automáticamente agrega el carácter nulo al final de la cadena, por lo que
+no es necesario agregarlo. Pero si estamos utilizando memoria dinámica para almacenar una cadena, debemos asegurarnos
+nosotros de que el último carácter sea el carácter nulo, para que las funciones de manipulación de cadenas funcionen
+bien.
+
+Por ejemplo:
+
+\begin{lstlisting}[language=C, caption={Ejemplo de cadenas en C}]
+#include <stdio.h>
+#include <string.h> // Incluye la biblioteca para manipulacion de cadenas
+
+int main() {
+  char cadena[20]; // Declara un arreglo de 20 caracteres
+
+  cadena[0] = 'H'; // Asigna el primer caracter
+  cadena[1] = 'o'; // Asigna el segundo caracter
+  cadena[2] = 'l'; // Asigna el tercer caracter
+  cadena[3] = 'a'; // Asigna el cuarto caracter
+
+  printf("El largo de cadena es: %d\n", strlen(cadena)); // 'cadena' NO termina en NULO!!!, CUIDADO!!
+
+  char* cadena2 = "Hola"; // Declara una cadena literal, termina en NULO automaticamente
+  printf("El largo de cadena2 es: %d\n", strlen(cadena2)); // cadena2 termina en NULO
+
+  return 0;
+}
+\end{lstlisting}
+
+La salida de este programa (puede) ser:
+
+\begin{verbatim}
+El largo de cadena es: 9
+El largo de cadena2 es: 4
+\end{verbatim}
+
+¿Por qué la cadena \texttt{cadena} tiene un largo de 9? Porque no termina en NULO, y por lo tanto la función
+\texttt{strlen} cuenta todos los caracteres hasta que encuentra un caracter \texttt{NULL}. Esto puede llevar a
+comportamientos inesperados, ya que si la cadena no termina en NULO, la función \texttt{strlen} seguirá contando hasta
+que encuentre un caracter \texttt{NULL} en memoria o hasta que se salga del rango de memoria asignada al programa y
+termine con un \texttt{Segmentation Fault}.
+
+Para ello se utiliza la función \texttt{strnlen} que permite especificar el tamaño máximo de la cadena a contar, de esta
+forma evitamos tener problemas de memoria, ya que podemos especificar cuántos caracteres vamos a contar como máximo
+antes de que la función se salga del rango de memoria asignada al programa.
+
+\begin{lstlisting}[language=C, caption={Ejemplo de cadenas en C con strnlen}]
+#include <stdio.h>
+#include <string.h> // Incluye la biblioteca para manejo de cadenas
+
+int main() {
+  char cadena[20]; // Declara un arreglo de 20 caracteres
+
+  cadena[0] = 'H'; // Asigna el primer caracter
+  cadena[1] = 'o'; // Asigna el segundo caracter
+  cadena[2] = 'l'; // Asigna el tercer caracter
+  cadena[3] = 'a'; // Asigna el cuarto caracter
+
+  printf("El largo de cadena es: %d\n", strnlen(cadena, sizeof(cadena))); // Ahora si termina en NULO!!!
+
+  return 0;
+}
+\end{lstlisting}
+
+\textbf{Importante}: Esto NO elimina el problema de que la cadena no termine en \texttt{NULL}, para que sólo cuente 4
+caracteres deberíamos haber agregado \texttt{cadena[4] = NULL;}, para hacer que nustra cadena \texttt{Hola} termine en
+el caracter nulo.
+
+\newpage % ------------------------------------------------------------------------------------------------------------
+
+
+\subsubsection{Cadenas en C++}
+
+En C++, las cadenas de caracteres se pueden representar utilizando la clase \texttt{string} de la biblioteca
+estándar, que proporciona una forma más fácil y segura de manejar cadenas de caracteres en comparación con las cadenas
+en C. La clase \texttt{string} se encuentra en la biblioteca \texttt{<string>} y se puede utilizar de la siguiente
+manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de cadenas en C++}]
+#include <iostream>
+#include <string> // Incluye la biblioteca para manejo de cadenas
+
+using namespace std;
+
+int main() {
+  string cadena = "Hola"; // Declara una cadena utilizando la clase string
+  cout << "La cadena es: " << cadena << endl; // Imprime la cadena
+  cout << "El largo de la cadena es: " << cadena.length() << endl; // Imprime el largo de la cadena
+
+  return 0;
+}
+\end{lstlisting}
+
+Vemos entonces que estas cadenas son mucho más fáciles de manejar que las cadenas en C ya que no hay que hacer ningún
+tipo de administración de la memoria ni preocuparse por el carácter nulo al final de la cadena o por el tamaño máximo de
+la cadena, ya que la clase \texttt{string} se encarga automáticamente de gestionar la memoria y el tamaño de la cadena.
+Además, la clase \texttt{string} proporciona una gran cantidad de funciones para manipular cadenas de caracteres, como
+concatenar, comparar, buscar, etc.
+
+\subsection{Scopes}
+\label{sec:scopes}
+
+En C y C++, el \textbf{scope} (o ámbito) de una variable se refiere a la región del código donde la variable es
+accesible. Existen diferentes tipos de scopes en C:
+
+\begin{itemize}
+  \item \textbf{Scope global}: Las variables declaradas fuera de cualquier función tienen un scope global y son
+    accesibles desde cualquier parte del programa.
+  \item \textbf{Scope local}: Las variables declaradas dentro de una función tienen un scope local y sólo son
+    accesibles dentro de esa función.
+  \item \textbf{Scope de bloque}: Las variables declaradas dentro de un bloque (por ejemplo, dentro de llaves
+    \texttt{\{\}}) tienen un scope limitado a ese bloque.
+\end{itemize}
+
+Saber utilizar los scopes correctamente es fundamental para evitar errores de acceso a variables, por ejemplo supongamos
+el siguiente código:
+
+\begin{lstlisting}[language=C, caption={Ejemplo de scopes en C}]
+#include <stdio.h>
+
+int x = 10;
+
+void asignar_valor_a_x(int nuevo_x) {
+  int x = nuevo_x;
+}
+
+int main() {
+  int x = 30;
+  asignar_valor_a_x(20);
+  printf("%d\n", x);
+  return 0;
+}
+\end{lstlisting}
+
+En este caso la salida del programa será \texttt{30}. Y esto se debe a que la variable que se le pasa al \texttt{printf}
+es una variable local al \textit{scope} de la función \texttt{main}.
+
+El scope global no tiene ninguna sintaxis particular, simplemente se declara una variable fuera de cualquier función y
+en el mismo archivo que estamos trabajando \footnote{En C además existe \texttt{extern} que permite declarar variables
+globales en otros archivos, pero no es necesario para esta materia.}. El resto de los scopes se declaran dentro de
+llaves \texttt{\{\}}, ya sea scope de funciones o scope de bloques.
+
+Si el scope tiene una sola línea de código, se puede omitir las llaves, excepto en el caso de que se necesite declarar
+una función. Ejemplos:
+
+\begin{lstlisting}[language=C, caption={Ejemplo de scopes en C}]
+#include <stdio.h>
+
+int x = 10; // scope global
+
+int main() {
+  printf("%d\n", x); // imprime el valor de x en el scope global
+
+  int x = 30; // scope local a la funcion main
+  printf("%d\n", x); // imprime el valor de x en el scope local de main
+
+  for(int i = 0; i < 5; i++) // scope de bloque
+    printf("iteracion %d\n", i); // scope de una linea
+
+  int j = 0;
+  while(j < 5) { // scope de bloque
+    int cuadrado = j * j; // scope local a la iteracion del while
+    printf("cuadrado de %d es %d\n", j, cuadrado);
+    j++;
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+En versiones antiguas de C (C89), las variables había que declararlas al principio del bloque o de las funciones. Sin
+embargo eso ya no es necesario en las versiones modernas de C ni en e C++, de hecho mi recomendación para esta materia
+es que siempre que sea posible se declare la variable lo más cerca posible de su uso, para evitar confusiones y mejorar
+la legibilidad del código. Por ejemplo, en un \texttt{for} es común declarar la variable de iteración dentro del mismo
+\texttt{for}.
+
+\newpage
+
+\subsection{Errores}
+
+Hay algo que no se explica en los libros de algoritmos porque excede el ámbito de esos libros, pero los errores de un
+lenguaje de programación son un tema fundamental a la hora de programar. Porque no sólo es importante saber escribir
+código correcto, sino también es importante saber \textbf{entender} los errores del compilador para poder luego
+\textbf{corregirlos}. Es por eso que independientemente del lenguaje de programación que vayan a utilizar en un futuro
+profesional, deben conocer los errores y los \textit{warnings} que el compilador (o el intérprete) les entregue para
+poder saber qué es lo que está mal.
+
+\subsubsection{Errores de compilación}
+
+Por ejemplo, supongamos el siguiente código:
+
+\begin{lstlisting}[language=C, caption={Código con error de compilación}]
+#include <stdio.h>
+
+int main() {
+  int n = 10;
+  int* ptr = (int*)malloc(n * sizeof(int)); // Error: falta el include <stdlib.h>
+
+  for(int i = 0; i < n; i++) {
+    printf("Iteracion %d\n", i);
+  }
+}
+\end{lstlisting}
+
+Al compilar este código, el compilador nos dará un error similar al siguiente:
+
+\begin{verbatim}
+ejemplo.c:5:20: error: call to undeclared library function 'malloc'
+                with type 'void *(unsigned long)'; ISO C99 and later do not s
+upport implicit function declarations [-Wimplicit-function-declaration]
+  int* ptr = (int*)malloc(n * sizeof(int)); // Error: falta el include <stdlib.h>
+                   ^
+ejemplo.c:5:20: note: include the header <stdlib.h> or explicitly provide a declaration for 'malloc'
+\end{verbatim}
+
+\newpage
+
+En este caso, el error nos indica que la función \texttt{malloc} no está declarada, lo que significa que no hemos
+incluido la biblioteca \texttt{stdlib.h} que contiene la declaración de la función \texttt{malloc}. Para corregir el
+error, simplemente debemos incluir la biblioteca al principio del código:
+
+\begin{lstlisting}[language=C, caption={Código corregido}]
+#include <stdio.h>
+#include <stdlib.h> // Agregamos la biblioteca stdlib.h
+
+int main() {
+  int n = 10;
+  int* ptr = (int*)malloc(n * sizeof(int)); // Ahora no hay error
+
+  for(int i = 0; i < n; i++) {
+    printf("Iteracion %d\n", i);
+  }
+
+  free(ptr); // No olvides liberar la memoria asignada
+}
+\end{lstlisting}
+
+A esto se le llama \textbf{error de compilación}. Son los errores más fáciles de detectar porque el compilador nos
+informa de ellos antes de ejecutar el programa, sólo tenemos que ser cuidadosos sobre el mensaje de error que nos
+entrega el compilador.
+
+\subsubsection{Errores de ejecución}
+
+Los errores de ejecución son aquellos que ocurren mientras el programa está ejecutando, con lo cual son errores mucho
+más difíciles de detectar, porque pueden ocurrir en cualquier momento y no siempre son evidentes. Por ejemplo, si
+tenemos el siguiente código:
+
+\begin{lstlisting}[language=C, caption={Código con error de ejecución}]
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int m = 10;
+  int n = 10000;
+  int* ptr = (int*)malloc(n * m * sizeof(int));
+
+  for(int i = 0; i < n*n; i++) { // deberia ser n * m
+    ptr[i] = i;
+  }
+
+  free(ptr);
+}
+\end{lstlisting}
+
+Al ejecutar este código, el programa puede fallar con un error de segmentación (segmentation fault) porque estamos
+intentando acceder a una posición de memoria que no hemos asignado. El error de segmentación ocurre cuando el programa
+intenta acceder a una dirección de memoria que no le corresponde y el sistema operativo lo detecta, terminando el
+programa abruptamente.
+
+\begin{verbatim}
+$ ./ejemplo 
+[1]    29897 segmentation fault  ./ejemplo
+\end{verbatim}
+
+\newpage
+
+\subsection{C++}
+\label{sec:cpp}
+
+Hasta acá lo que vimos fueron los conceptos básicos de C y algunas cosas que son paralelas en C++. Si bien C++ se lo
+asocia con la programación orientada a objetos (OOP), en esta materia no vamos a ver nada de OOP, pero sí vamos a
+utilizar los contenedores de C++ que son parate de la biblioteca estándar de C++ (STL) y que nos permiten manejar
+estructuras de datos como vectores, listas, colas, pilas, etc. de una forma mucho más sencilla que en C, ya que se
+encargan automáticamente de gestionar la memoria y el tamaño de las estructuras de datos, lo que nos permite centrarnos
+en la lógica de nuestro programa sin tener que preocuparnos por el manejo de memoria como vimos anteriormente.
+
+\subsubsection{Contenedores de la biblioteca estándar de C++}
+
+Los contenedores de la biblioteca estándar de C++ (STL) son una colección de clases y funciones que proporcionan
+estructuras de datos que manejan la memoria por nosotros y tienen una interfaz fácil de usar. Algunos de los
+contenedores más comunes son:
+
+\begin{itemize}
+  \item \texttt{std::vector}: Un arreglo dinámico que puede cambiar de tamaño automáticamente.
+  \item \texttt{std::set}: Un conjunto que almacena elementos únicos en orden.
+  \item \texttt{std::unordered\_set}: Un conjunto que almacena elementos únicos sin orden.
+  \item \texttt{std::map}: Un mapa que almacena pares clave-valor en orden.
+  \item \texttt{std::unordered\_map}: Un mapa que almacena pares clave-valor sin orden.
+  \item \texttt{std::pair}: Una clase que almacena un par de valores, que pueden ser de diferentes tipos.
+\end{itemize}
+
+Cuando uno utiliza estos contenedores, no es necesario preocuparse por el manejo de memoria, ya que se encargan
+automáticamente de asignar y liberar memoria según sea necesario. Además, estos contenedores proporcionan una gran
+cantidad de funciones para manipular los datos almacenados, como insertar, eliminar, encontrar el primer elemento, el
+último elemento.
+
+La sintaxis para utilizar estos contenedores en la documentación es la siguiente:
+
+\begin{itemize}
+  \item \texttt{std::vector<T>}: Donde \texttt{T} es el tipo de datos que se va a almacenar en el vector.
+  \item \texttt{std::set<T>}: Donde \texttt{T} es el tipo de datos que se va a almacenar en el set.
+  \item \texttt{std::unordered\_set<T>}: Donde \texttt{T} es el tipo de datos que se va a almacenar en el unordered\_set.
+  \item \texttt{std::map<K, V>}: Donde \texttt{K} es el tipo de datos que se va a utilizar como clave y \texttt{V} es
+    el tipo de datos que se va a utilizar como valor en el mapa.
+  \item \texttt{std::unordered\_map<K, V>}: Donde \texttt{K} es el tipo de datos que se va a utilizar como clave y
+    \texttt{V} es el tipo de datos que se va a utilizar como valor en el unordered\_map.
+  \item \texttt{std::pair<T1, T2>}: Donde \texttt{T1} es el tipo de datos del primer elemento del par y \texttt{T2} es
+    el tipo de datos del segundo elemento del par.
+\end{itemize}
+
+La sintaxis de los contenedores con \texttt{<T>} o \texttt{<K, V>} se llama sintaxis de plantillas (templates) y es una
+característica de C++ que permite crear clases y funciones genéricas que pueden trabajar con cualquier tipo de datos.
+Esto hace que los contenedores de la biblioteca estándar de C++ sean muy flexibles y reutilizables, ya que se pueden
+utilizar con cualquier tipo de datos sin tener que escribir código específico para cada tipo de datos.
+
+\newpage
+
+\subsubsection{Iteradores}
+
+Intrínsecamente relacionados con los contenedores de la biblioteca estándar de C++ (STL) están los iteradores, que son
+objetos que permiten recorrer los elementos de un contenedor de manera secuencial. Los iteradores proporcionan una
+interfaz uniforme para acceder a los elementos de diferentes tipos de contenedores, lo que facilita la manipulación de
+datos sin tener que preocuparse por la estructura interna del contenedor. Por ejemplo, si queremos recorrer un vector de
+enteros utilizando un iterador, podríamos hacerlo de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de iteradores en C++}]
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+  vector<int> numeros = {1, 2, 3, 4, 5}; // Crea un vector de enteros
+
+  // Crea un iterador para el vector
+  vector<int>::iterator it;
+
+  // Recorre el vector utilizando el iterador
+  for (it = numeros.begin(); it != numeros.end(); ++it) {
+    cout << *it << " "; // Imprime el valor al que apunta el iterador
+  }
+  cout << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+Expliquemos un poco lo que está pasando acá. Primero, creamos un vector de enteros llamado \texttt{numeros} e
+inicializamos con algunos valores.
+
+Vemos que \texttt{numeros.begin()} y \texttt{numeros.end()} son funciones que devuelven iteradores que apuntan al primer
+elemento del vector y al elemento siguiente al último elemento del vector. Con lo cual \texttt{numeros.begin()} es un
+iterador que apunta al primer elemento del vector (y de cualquier otro contenedor), mientras que \texttt{numeros.end()}
+es un iterador que apunta a una posición de memoria que está justo después del último elemento del vector, lo que
+significa que no es un iterador válido para acceder a los elementos del vector, pero es útil para determinar cuándo
+hemos llegado al final del vector durante la iteración. A esto en matemáticas se lo conoce como que un conjunto está
+cerrado por abajo y abierto por arriba, porque \texttt{numeros.begin()} pertenece al conjunto pero
+\texttt{numeros.end()} no pertenece al conjunto.
+
+Lo interesante de este tipo de iteradores es que se pueden utilizar con cualquier tipo de contenedor de la biblioteca
+estándar de C++, por ejemplo imaginemos que hacemos lo mismo pero con un \texttt{std::set}:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de iteradores con un set en C++}]
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+int main() {
+  set<int> numeros; // Crea un set de enteros
+  numeros.insert(5);
+  numeros.insert(3);
+  numeros.insert(1);
+  numeros.insert(4);
+  numeros.insert(2);
+
+  // Crea un iterador para el set
+  set<int>::iterator it;
+
+  // Recorre el set utilizando el iterador
+  for (it = numeros.begin(); it != numeros.end(); ++it) {
+    cout << *it << " "; // Imprime el valor al que apunta el iterador
+  }
+  cout << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+De todas formas C++ también permite el uso de \texttt{auto} para declarar iteradores de forma automática, lo que hace
+que el código sea más limpio y fácil de leer, por ejemplo:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de iteradores con auto en C++}]
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+int main() {
+  set<int> numeros = {5, 3, 1, 4, 2}; // Crea un set de enteros
+
+  // Recorre el set utilizando un iterador declarado con auto
+  for (auto e : numeros) {
+    cout << e << " "; // Imprime el valor del elemento
+  }
+  cout << endl;
+  return 0;
+}
+\end{lstlisting}
+
+Pero para esto hay que utilizar las extesiones de C++11, que es una versión de C++ que introdujo muchas mejoras y nuevas
+características al lenguaje, incluyendo el uso de \texttt{auto} para la declaración automática de variables, lo que hace
+que el código sea más limpio y fácil de leer, ya que no es necesario especificar el tipo de la variable cuando se
+declara, sino que el compilador lo infiere automáticamente a partir del valor que se le asigna. Otro cambio es que se
+puede inicializar los \texttt{std::set} utilizando una lista \texttt{\{5, 3, 1, 4, 2\}} en lugar de tener que insertar
+cada elemento por separado utilizando la función \texttt{insert}.
+
+Para poder compilar hay que explicitar el uso de C++11 utilizando la opción \texttt{-std=c++11} al compilar, por
+ejemplo:
+
+\begin{verbatim}
+g++ -std=c++11 ejemplo.cpp -o ejemplo
+\end{verbatim}
+
+\newpage
+
+\subsubsection{Vector}
+
+El vector es un contenedor de la biblioteca estándar de C++ que representa un arreglo dinámico, lo que significa que
+puede cambiar de tamaño automáticamente a medida que se agregan o eliminan elementos. El vector es uno de los
+contenedores más utilizados en C++ debido a su flexibilidad y eficiencia, ya que proporciona acceso aleatorio a los
+elementos y tiene un rendimiento similar al de un arreglo tradicional. El vector se declara utilizando la clase
+\texttt{std::vector} y se puede utilizar de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de vector en C++}]
+#include <iostream>
+#include <vector> // Incluye la biblioteca para manejo de vectores
+
+using namespace std;
+
+int main() {
+  vector<int> numeros; // Crea un vector de enteros
+
+  // Agrega elementos al vector
+  numeros.push_back(1);
+  numeros.push_back(2);
+  numeros.push_back(3);
+
+  // Imprime los elementos del vector
+  cout << "Elementos del vector: ";
+  for (int i = 0; i < numeros.size(); i++) {
+    cout << numeros[i] << " ";
+  }
+  cout << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+La función \texttt{push\_back} se utiliza para agregar elementos al final del vector, y la función \texttt{size} se
+utiliza para obtener el número de elementos en el vector. Además, el vector proporciona acceso aleatorio a los
+elementos, lo que significa que se puede acceder a cualquier elemento del vector utilizando su índice, como se muestra
+en el ejemplo anterior con \texttt{numeros[i]} como los \textit{arrays} tradicionales de C.
+
+La complejidad de las operaciones de inserción y eliminación en un vector es amortizada O(1) cuando se agrega o elimina
+un elemento al final del vector, pero puede ser O(n) en el peor caso cuando se agrega o elimina un elemento en una
+posición intermedia del vector, ya que es necesario mover los elementos para mantener la contigüidad de la memoria. Sin
+embargo, el acceso a los elementos del vector es O(1) debido a que el vector almacena los elementos de manera contigua
+en memoria, lo que permite acceder a cualquier elemento utilizando su índice de manera eficiente.
+
+\newpage
+
+\subsubsection{Set}
+
+El set es un contenedor de la biblioteca estándar de C++ que representa un conjunto de elementos únicos, lo que
+significa que no puede contener elementos duplicados. El set se declara utilizando la clase \texttt{std::set} y se puede
+utilizar de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de set en C++}]
+#include <iostream>
+#include <set> // Incluye la biblioteca para manejo de sets
+
+using namespace std;
+
+int main() {
+  set<int> numeros; // Crea un set de enteros
+
+  // Agrega elementos al set
+  numeros.insert(5);
+  numeros.insert(3);
+  numeros.insert(1);
+  numeros.insert(4);
+  numeros.insert(2);
+
+  // Imprime los elementos del set
+  cout << "Elementos del set: ";
+  for (auto e : numeros) {
+    cout << e << " ";
+  }
+  cout << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+La complejidad de las operaciones de inserción, eliminación y búsqueda en un set es O(log n) debido a que el set se
+implementa utilizando un árbol binario de búsqueda balanceado (generalmente un árbol rojo-negro), lo que permite
+mantener los elementos ordenados y realizar las operaciones de manera eficiente. Sin embargo, el acceso a los elementos
+del set no es O(1) como en un vector, ya que el set no almacena los elementos de manera contigua en memoria, sino que
+los organiza en una estructura de árbol, lo que hace que el acceso a los elementos sea más lento en comparación con un
+vector.
+
+\subsubsection{Unordered Set}
+
+La diferencia entre \texttt{set} y \texttt{unordered\_set} es la implementación interna. Mientras que \texttt{set} está
+implementado utilizando un árbol balanceado, el \texttt{unordered\_set} está implementado con un hash, con lo cual la
+complejidad en tiempo de acceso cambia, ya que se puede acceder, insertar y eliminar elementos en O(1), pero los
+elementos no mantienen un orden.
+
+\newpage
+
+\subsubsection{Map}
+
+El contenedor \texttt{map} es una estructura de datos que almacena valores a partir de una clave (piénsenlo como una
+base de datos clave-valor). El \texttt{map} se declara utilizando la clase \texttt{std::map} y se puede utilizar de la
+siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de map en C++}]
+#include <iostream>
+#include <map> // Incluye la biblioteca para manejo de mapas
+
+using namespace std;
+
+int main() {
+  map<string, int> edades; // Crea un mapa de string a int
+
+  // Agrega elementos al mapa
+  edades["Juan"] = 30;
+  edades["Maria"] = 25;
+  edades["Pedro"] = 35;
+
+  // Imprime los elementos del mapa
+  cout << "Edades:" << endl;
+  for (const auto& par : edades) {
+    cout << par.first << ": " << par.second << endl; // Imprime la clave y el valor
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+Aquí introducimos el concepto de \texttt{const reference} con \texttt{const auto\& par}, que es una forma de declarar
+una variable que es una referencia constante a un elemento del mapa. Esto significa que \texttt{par} es una referencia a
+un elemento del mapa, lo que evita la copia de los elementos del mapa durante la iteración (como sucedía en los
+argumentos de las funciones). La diferencia en este caso es que es una referencia \textbf{constante}, lo que significa
+que no se puede modificar el valor de \texttt{par} dentro del bucle, lo que garantiza que no se alteren los datos del
+mapa durante la iteración.
+
+\textbf{¿Cómo es que par tiene dos campos, first y second?} Porque el tipo de dato de los elementos del mapa es un
+\texttt{pair} que veremos a continuación. Este contenedor tiene dos valores solamente y los métodos para poder acceder a
+esos valores son \texttt{first} y \texttt{second}.
+
+\subsubsection{Unordered Map}
+
+El contenedor \texttt{unordered\_map} es similar al \texttt{map}, pero no mantiene un orden específico de los elementos
+debido a que está implementado utilizando un hash. Esto significa que las operaciones de inserción, eliminación y
+búsqueda en un \texttt{unordered\_map} tienen una complejidad de O(1) en promedio, lo que lo hace más eficiente que un
+\texttt{map} en situaciones donde el orden de los elementos no es importante, esto es similar a lo que ocurría con el
+\texttt{set}.
+
+\newpage
+
+\subsubsection{Pair}
+
+El contenedor \texttt{pair} es una clase que almacena un par de valores, que pueden ser de diferentes tipos. El
+\texttt{pair} se declara de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de pair en C++}]
+#include <iostream>
+#include <utility>
+
+using namespace std;
+
+int main() {
+  pair<string, int> persona; // Crea un par de string e int
+
+  // Asigna valores al par
+  persona.first = "Juan"; // Asigna el primer valor del par
+  persona.second = 30; // Asigna el segundo valor del par
+
+  // Imprime los valores del par
+  cout << "Nombre: " << persona.first << ", Edad: " << persona.second << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+Al principio puede parecer un contenedor un poco extraño, pero es súper útil para almacenar pares de valores
+relacionados, por ejemplo "latitud,longitud".
+
+\newpage
+
+\subsubsection{Tuple}
+
+En C++ también existe el contenedor \texttt{tuple}, que es similar al \texttt{pair} pero puede almacenar un número
+arbitrario de valores de diferentes tipos. El \texttt{tuple} se declara utilizando la clase \texttt{std::tuple} y se
+puede utilizar de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de tuple en C++}]
+#include <iostream>
+#include <tuple> // Incluye la biblioteca para manejo de tuplas
+
+using namespace std;
+
+int main() {
+  tuple<string, int, double> persona; // Crea una tupla de string, int y double
+
+  // Asigna valores a la tupla
+  get<0>(persona) = "Juan"; // Asigna el primer valor de la tupla
+  get<1>(persona) = 30; // Asigna el segundo valor de la tupla
+  get<2>(persona) = 1.75; // Asigna el tercer valor de la tupla
+
+  // Imprime los valores de la tupla
+  cout << "Nombre: " << get<0>(persona) << ", Edad: " << get<1>(persona) << ", Altura: " << get<2>(persona) << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+Seguramente no lleguemos a hacer ningún ejercicio que requiera el uso de tuplas, pero es importante conocer su
+existencia para poder utilizarlas en el futuro.
+
+\newpage
+
+\subsubsection{Composición de Contenedores}
+
+Quizás se pregunten \textbf{¿Entonces puedo utilizar un vector de sets?}, la respuesta es sí, ya que los contenedores de
+la biblioteca estándar de C++ se consideran tipos de datos, con lo cual cuando nosotros escribimos \texttt{vector<T>}
+esa \texttt{T} puede ser cualquier tipo de dato, incluyendo otros contenedores de la biblioteca estándar de C++. Esto
+permite crear estructuras de datos más complejas y flexibles al combinar diferentes contenedores entre sí. Por ejemplo,
+podríamos declarar un vector de sets de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de un vector de sets en C++}]
+#include <iostream>
+#include <vector>
+#include <set>
+
+using namespace std;
+
+int main() {
+  vector<set<int>> vector_de_sets; // Declara un vector de sets de enteros
+
+  set<int> set1 = {1, 2, 3}; // Crea un set de enteros
+  set<int> set2 = {4, 5, 6}; // Crea otro set de enteros
+
+  vector_de_sets.push_back(set1); // Agrega el primer set al vector
+  vector_de_sets.push_back(set2); // Agrega el segundo set al vector
+
+  // Imprime los elementos del vector de sets
+  for (const auto& s : vector_de_sets) {
+    for (const auto& e : s) {
+      cout << e << " "; // Imprime cada elemento del set
+    }
+    cout << endl; // Salto de línea después de cada set
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+Con lo cual se pueden hacer otras composiciones, por ejemplo una matriz de enteros componiendo un vector de vectores de
+enteros:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de una matriz de enteros en C++}]
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+  vector<vector<int>> matriz; // Declara un vector de vectores de enteros
+
+  // Crea una matriz de 3x3
+  for (int i = 0; i < 3; i++) {
+    vector<int> fila; // Crea un vector para la fila
+    for (int j = 0; j < 3; j++) {
+      fila.push_back(i * 3 + j + 1); // Agrega elementos a la fila
+    }
+    matriz.push_back(fila); // Agrega la fila a la matriz
+  }
+
+  // Imprime los elementos de la matriz
+  for (const auto& fila : matriz) {
+    for (const auto& elemento : fila) {
+      cout << elemento << " "; // Imprime cada elemento de la fila
+    }
+    cout << endl; // Salto de línea después de cada fila
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+\input{../shared.tex/common_footers.tex}
+
+\end{document}
