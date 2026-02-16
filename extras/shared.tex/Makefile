@@ -3,7 +3,7 @@ all: compile_latex clean
 .PHONY: all clean install_latex install
 
 current:
-	$(eval FILE := 01.teorica_____lenguaje.cpp)
+	$(eval FILE := A1.teorica_____lenguaje.cpp)
 	pdflatex -shell-escape $(FILE).tex
 	pdflatex -shell-escape $(FILE).tex
 	open $(FILE).pdf

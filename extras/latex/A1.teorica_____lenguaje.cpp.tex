@@ -4,7 +4,7 @@
 
 \begin{center}
   \LARGE\textbf{\coursename} \\
-  \Large{Introducción al Lenguaje C++} \\
+  \Large{Apéndice 01 - Introducción al Lenguaje C++} \\
   \normalsize{\currentsemester, \currentyear} \\
   \vspace{1em}
   \hrule
@@ -12,7 +12,7 @@
 
 \vspace{1em}
 
-\setcounter{section}{1}
+\setcounter{section}{0}
 
 \newpage
 
@@ -21,17 +21,22 @@
 \newpage
 
 \begin{tcolorbox}[colback=mint,colframe=mint!75!black,arc=0pt,outer arc=0pt]
-  \textbf{¡Bienvenidos a Programación con Algoritmos 1!} \\
+  \textbf{¡Bienvenidos a Algoritmos 1!} \\
 
-  Esta es una guía adicional para que tengas de referencia del lenguaje C++ que vamos a utilizar en la materia. El
-  objetivo de esta guía es que puedas:
+  Esta es una guía adicional para que tengas como referencia del lenguaje C++ que es lo que vamos a estar utilizando
+  durante la cursada. Si bien no es necesario que sepas C++, es importante que tengas una base sólida para que puedas
+  entender los errores y poder resolver los ejercicios que se van a plantear durante la materia.
+
+  El objetivo de esta guía es que puedas:
 
   \begin{itemize}
-    \item \textbf{Compilar y ejecutar código en C / C++}
+    \item \textbf{Aprender a compilar y ejecutar código en C / C++}
     \item \textbf{Aprender y repasar los conceptos básicos de C / C++} que son necesarios para la materia.
+    \item \textbf{Tener una referencia rápida de la sintaxis de C / C++} para poder consultar cuando tengas dudas sobre
+      cómo escribir algo en C / C++.
   \end{itemize}
 
-  ¡Consultá todo lo que no entiendas de la práctica!
+  Si aún así te quedan dudas sobre cómo escribir alguna cosa puntual \textbf{¡Utilizá las herramientas para consultar!}
 \end{tcolorbox}
 
 \newpage
@@ -328,6 +333,22 @@ int main() {
 }
 \end{lstlisting}
 
+El \texttt{if} es una estructura de control que permite ejecutar o no un bloque de código (como veremos en la sección
+Scopes \ref{sec:scopes}) dependiendo de si se cumple o no una condición, pueden haber múltiples condiciones utilizando
+\texttt{else if}, y un bloque de código que se ejecuta si ninguna de lass condiciones se cumple utilizando
+\texttt{else}.
+
+El \texttt{while} es una estructura de control que permite repetir un bloque de código mientras se cumpla una condición,
+es decir, se chequea la condición al inicio de la ejecución del bloque, y mientras esa condición sea verdadera, el
+bloque de código se ejecutará, y luego se volverá a chequear la condición.
+
+El \texttt{for} es una estructura de control que permite repetir un bloque de código un número determinado de veces
+donde se chequea una condición al inicio de la ejecución del bloque. Minetras que esa condición sea verdadera, el bloque
+de código se ejecutará, y luego se ejecutará una expresión de actualización que generalmente se utiliza para modificar
+la variable de control del bucle. Podemos decir que el \texttt{for} es una versión más compacta del \texttt{while} ya
+que permite inicializar variables, chequear la condición y actualizar la variable en una sola línea de código.
+
+A medida que programen verán cuál de las estructuras de control es más conveniente utilizar dependiendo del caso.
 
 \subsubsection{Punteros}
 
@@ -810,6 +831,7 @@ Además, la clase \texttt{string} proporciona una gran cantidad de funciones par
 concatenar, comparar, buscar, etc.
 
 \subsection{Scopes}
+\label{sec:scopes}
 
 En C y C++, el \textbf{scope} (o ámbito) de una variable se refiere a la región del código donde la variable es
 accesible. Existen diferentes tipos de scopes en C:
@@ -924,6 +946,8 @@ upport implicit function declarations [-Wimplicit-function-declaration]
 ejemplo.c:5:20: note: include the header <stdlib.h> or explicitly provide a declaration for 'malloc'
 \end{verbatim}
 
+\newpage
+
 En este caso, el error nos indica que la función \texttt{malloc} no está declarada, lo que significa que no hemos
 incluido la biblioteca \texttt{stdlib.h} que contiene la declaración de la función \texttt{malloc}. Para corregir el
 error, simplemente debemos incluir la biblioteca al principio del código:
@@ -981,6 +1005,8 @@ $ ./ejemplo
 [1]    29897 segmentation fault  ./ejemplo
 \end{verbatim}
 
+\newpage
+
 \subsection{C++}
 \label{sec:cpp}
 
@@ -999,17 +1025,38 @@ contenedores más comunes son:
 
 \begin{itemize}
   \item \texttt{std::vector}: Un arreglo dinámico que puede cambiar de tamaño automáticamente.
-  \item \texttt{std::deque}: Una cola de doble extremo que permite inserciones y eliminaciones eficientes en ambos extremos.
   \item \texttt{std::set}: Un conjunto que almacena elementos únicos en orden.
   \item \texttt{std::unordered\_set}: Un conjunto que almacena elementos únicos sin orden.
   \item \texttt{std::map}: Un mapa que almacena pares clave-valor en orden.
   \item \texttt{std::unordered\_map}: Un mapa que almacena pares clave-valor sin orden.
+  \item \texttt{std::pair}: Una clase que almacena un par de valores, que pueden ser de diferentes tipos.
 \end{itemize}
 
 Cuando uno utiliza estos contenedores, no es necesario preocuparse por el manejo de memoria, ya que se encargan
 automáticamente de asignar y liberar memoria según sea necesario. Además, estos contenedores proporcionan una gran
 cantidad de funciones para manipular los datos almacenados, como insertar, eliminar, encontrar el primer elemento, el
 último elemento.
+
+La sintaxis para utilizar estos contenedores en la documentación es la siguiente:
+
+\begin{itemize}
+  \item \texttt{std::vector<T>}: Donde \texttt{T} es el tipo de datos que se va a almacenar en el vector.
+  \item \texttt{std::set<T>}: Donde \texttt{T} es el tipo de datos que se va a almacenar en el set.
+  \item \texttt{std::unordered\_set<T>}: Donde \texttt{T} es el tipo de datos que se va a almacenar en el unordered\_set.
+  \item \texttt{std::map<K, V>}: Donde \texttt{K} es el tipo de datos que se va a utilizar como clave y \texttt{V} es
+    el tipo de datos que se va a utilizar como valor en el mapa.
+  \item \texttt{std::unordered\_map<K, V>}: Donde \texttt{K} es el tipo de datos que se va a utilizar como clave y
+    \texttt{V} es el tipo de datos que se va a utilizar como valor en el unordered\_map.
+  \item \texttt{std::pair<T1, T2>}: Donde \texttt{T1} es el tipo de datos del primer elemento del par y \texttt{T2} es
+    el tipo de datos del segundo elemento del par.
+\end{itemize}
+
+La sintaxis de los contenedores con \texttt{<T>} o \texttt{<K, V>} se llama sintaxis de plantillas (templates) y es una
+característica de C++ que permite crear clases y funciones genéricas que pueden trabajar con cualquier tipo de datos.
+Esto hace que los contenedores de la biblioteca estándar de C++ sean muy flexibles y reutilizables, ya que se pueden
+utilizar con cualquier tipo de datos sin tener que escribir código específico para cada tipo de datos.
+
+\newpage
 
 \subsubsection{Iteradores}
 
@@ -1117,6 +1164,285 @@ ejemplo:
 \begin{verbatim}
 g++ -std=c++11 ejemplo.cpp -o ejemplo
 \end{verbatim}
+
+\newpage
+
+\subsubsection{Vector}
+
+El vector es un contenedor de la biblioteca estándar de C++ que representa un arreglo dinámico, lo que significa que
+puede cambiar de tamaño automáticamente a medida que se agregan o eliminan elementos. El vector es uno de los
+contenedores más utilizados en C++ debido a su flexibilidad y eficiencia, ya que proporciona acceso aleatorio a los
+elementos y tiene un rendimiento similar al de un arreglo tradicional. El vector se declara utilizando la clase
+\texttt{std::vector} y se puede utilizar de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de vector en C++}]
+#include <iostream>
+#include <vector> // Incluye la biblioteca para manejo de vectores
+
+using namespace std;
+
+int main() {
+  vector<int> numeros; // Crea un vector de enteros
+
+  // Agrega elementos al vector
+  numeros.push_back(1);
+  numeros.push_back(2);
+  numeros.push_back(3);
+
+  // Imprime los elementos del vector
+  cout << "Elementos del vector: ";
+  for (int i = 0; i < numeros.size(); i++) {
+    cout << numeros[i] << " ";
+  }
+  cout << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+La función \texttt{push\_back} se utiliza para agregar elementos al final del vector, y la función \texttt{size} se
+utiliza para obtener el número de elementos en el vector. Además, el vector proporciona acceso aleatorio a los
+elementos, lo que significa que se puede acceder a cualquier elemento del vector utilizando su índice, como se muestra
+en el ejemplo anterior con \texttt{numeros[i]} como los \textit{arrays} tradicionales de C.
+
+La complejidad de las operaciones de inserción y eliminación en un vector es amortizada O(1) cuando se agrega o elimina
+un elemento al final del vector, pero puede ser O(n) en el peor caso cuando se agrega o elimina un elemento en una
+posición intermedia del vector, ya que es necesario mover los elementos para mantener la contigüidad de la memoria. Sin
+embargo, el acceso a los elementos del vector es O(1) debido a que el vector almacena los elementos de manera contigua
+en memoria, lo que permite acceder a cualquier elemento utilizando su índice de manera eficiente.
+
+\newpage
+
+\subsubsection{Set}
+
+El set es un contenedor de la biblioteca estándar de C++ que representa un conjunto de elementos únicos, lo que
+significa que no puede contener elementos duplicados. El set se declara utilizando la clase \texttt{std::set} y se puede
+utilizar de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de set en C++}]
+#include <iostream>
+#include <set> // Incluye la biblioteca para manejo de sets
+
+using namespace std;
+
+int main() {
+  set<int> numeros; // Crea un set de enteros
+
+  // Agrega elementos al set
+  numeros.insert(5);
+  numeros.insert(3);
+  numeros.insert(1);
+  numeros.insert(4);
+  numeros.insert(2);
+
+  // Imprime los elementos del set
+  cout << "Elementos del set: ";
+  for (auto e : numeros) {
+    cout << e << " ";
+  }
+  cout << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+La complejidad de las operaciones de inserción, eliminación y búsqueda en un set es O(log n) debido a que el set se
+implementa utilizando un árbol binario de búsqueda balanceado (generalmente un árbol rojo-negro), lo que permite
+mantener los elementos ordenados y realizar las operaciones de manera eficiente. Sin embargo, el acceso a los elementos
+del set no es O(1) como en un vector, ya que el set no almacena los elementos de manera contigua en memoria, sino que
+los organiza en una estructura de árbol, lo que hace que el acceso a los elementos sea más lento en comparación con un
+vector.
+
+\subsubsection{Unordered Set}
+
+La diferencia entre \texttt{set} y \texttt{unordered\_set} es la implementación interna. Mientras que \texttt{set} está
+implementado utilizando un árbol balanceado, el \texttt{unordered\_set} está implementado con un hash, con lo cual la
+complejidad en tiempo de acceso cambia, ya que se puede acceder, insertar y eliminar elementos en O(1), pero los
+elementos no mantienen un orden.
+
+\newpage
+
+\subsubsection{Map}
+
+El contenedor \texttt{map} es una estructura de datos que almacena valores a partir de una clave (piénsenlo como una
+base de datos clave-valor). El \texttt{map} se declara utilizando la clase \texttt{std::map} y se puede utilizar de la
+siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de map en C++}]
+#include <iostream>
+#include <map> // Incluye la biblioteca para manejo de mapas
+
+using namespace std;
+
+int main() {
+  map<string, int> edades; // Crea un mapa de string a int
+
+  // Agrega elementos al mapa
+  edades["Juan"] = 30;
+  edades["Maria"] = 25;
+  edades["Pedro"] = 35;
+
+  // Imprime los elementos del mapa
+  cout << "Edades:" << endl;
+  for (const auto& par : edades) {
+    cout << par.first << ": " << par.second << endl; // Imprime la clave y el valor
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+Aquí introducimos el concepto de \texttt{const reference} con \texttt{const auto\& par}, que es una forma de declarar
+una variable que es una referencia constante a un elemento del mapa. Esto significa que \texttt{par} es una referencia a
+un elemento del mapa, lo que evita la copia de los elementos del mapa durante la iteración (como sucedía en los
+argumentos de las funciones). La diferencia en este caso es que es una referencia \textbf{constante}, lo que significa
+que no se puede modificar el valor de \texttt{par} dentro del bucle, lo que garantiza que no se alteren los datos del
+mapa durante la iteración.
+
+\textbf{¿Cómo es que par tiene dos campos, first y second?} Porque el tipo de dato de los elementos del mapa es un
+\texttt{pair} que veremos a continuación. Este contenedor tiene dos valores solamente y los métodos para poder acceder a
+esos valores son \texttt{first} y \texttt{second}.
+
+\subsubsection{Unordered Map}
+
+El contenedor \texttt{unordered\_map} es similar al \texttt{map}, pero no mantiene un orden específico de los elementos
+debido a que está implementado utilizando un hash. Esto significa que las operaciones de inserción, eliminación y
+búsqueda en un \texttt{unordered\_map} tienen una complejidad de O(1) en promedio, lo que lo hace más eficiente que un
+\texttt{map} en situaciones donde el orden de los elementos no es importante, esto es similar a lo que ocurría con el
+\texttt{set}.
+
+\newpage
+
+\subsubsection{Pair}
+
+El contenedor \texttt{pair} es una clase que almacena un par de valores, que pueden ser de diferentes tipos. El
+\texttt{pair} se declara de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de pair en C++}]
+#include <iostream>
+#include <utility>
+
+using namespace std;
+
+int main() {
+  pair<string, int> persona; // Crea un par de string e int
+
+  // Asigna valores al par
+  persona.first = "Juan"; // Asigna el primer valor del par
+  persona.second = 30; // Asigna el segundo valor del par
+
+  // Imprime los valores del par
+  cout << "Nombre: " << persona.first << ", Edad: " << persona.second << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+Al principio puede parecer un contenedor un poco extraño, pero es súper útil para almacenar pares de valores
+relacionados, por ejemplo "latitud,longitud".
+
+\newpage
+
+\subsubsection{Tuple}
+
+En C++ también existe el contenedor \texttt{tuple}, que es similar al \texttt{pair} pero puede almacenar un número
+arbitrario de valores de diferentes tipos. El \texttt{tuple} se declara utilizando la clase \texttt{std::tuple} y se
+puede utilizar de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de tuple en C++}]
+#include <iostream>
+#include <tuple> // Incluye la biblioteca para manejo de tuplas
+
+using namespace std;
+
+int main() {
+  tuple<string, int, double> persona; // Crea una tupla de string, int y double
+
+  // Asigna valores a la tupla
+  get<0>(persona) = "Juan"; // Asigna el primer valor de la tupla
+  get<1>(persona) = 30; // Asigna el segundo valor de la tupla
+  get<2>(persona) = 1.75; // Asigna el tercer valor de la tupla
+
+  // Imprime los valores de la tupla
+  cout << "Nombre: " << get<0>(persona) << ", Edad: " << get<1>(persona) << ", Altura: " << get<2>(persona) << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+Seguramente no lleguemos a hacer ningún ejercicio que requiera el uso de tuplas, pero es importante conocer su
+existencia para poder utilizarlas en el futuro.
+
+\newpage
+
+\subsubsection{Composición de Contenedores}
+
+Quizás se pregunten \textbf{¿Entonces puedo utilizar un vector de sets?}, la respuesta es sí, ya que los contenedores de
+la biblioteca estándar de C++ se consideran tipos de datos, con lo cual cuando nosotros escribimos \texttt{vector<T>}
+esa \texttt{T} puede ser cualquier tipo de dato, incluyendo otros contenedores de la biblioteca estándar de C++. Esto
+permite crear estructuras de datos más complejas y flexibles al combinar diferentes contenedores entre sí. Por ejemplo,
+podríamos declarar un vector de sets de la siguiente manera:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de un vector de sets en C++}]
+#include <iostream>
+#include <vector>
+#include <set>
+
+using namespace std;
+
+int main() {
+  vector<set<int>> vector_de_sets; // Declara un vector de sets de enteros
+
+  set<int> set1 = {1, 2, 3}; // Crea un set de enteros
+  set<int> set2 = {4, 5, 6}; // Crea otro set de enteros
+
+  vector_de_sets.push_back(set1); // Agrega el primer set al vector
+  vector_de_sets.push_back(set2); // Agrega el segundo set al vector
+
+  // Imprime los elementos del vector de sets
+  for (const auto& s : vector_de_sets) {
+    for (const auto& e : s) {
+      cout << e << " "; // Imprime cada elemento del set
+    }
+    cout << endl; // Salto de línea después de cada set
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+Con lo cual se pueden hacer otras composiciones, por ejemplo una matriz de enteros componiendo un vector de vectores de
+enteros:
+
+\begin{lstlisting}[language=C++, caption={Ejemplo de una matriz de enteros en C++}]
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+  vector<vector<int>> matriz; // Declara un vector de vectores de enteros
+
+  // Crea una matriz de 3x3
+  for (int i = 0; i < 3; i++) {
+    vector<int> fila; // Crea un vector para la fila
+    for (int j = 0; j < 3; j++) {
+      fila.push_back(i * 3 + j + 1); // Agrega elementos a la fila
+    }
+    matriz.push_back(fila); // Agrega la fila a la matriz
+  }
+
+  // Imprime los elementos de la matriz
+  for (const auto& fila : matriz) {
+    for (const auto& elemento : fila) {
+      cout << elemento << " "; // Imprime cada elemento de la fila
+    }
+    cout << endl; // Salto de línea después de cada fila
+  }
+
+  return 0;
+}
+\end{lstlisting}
 
 \input{../shared.tex/common_footers.tex}
 
